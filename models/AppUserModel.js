@@ -14,12 +14,6 @@ const AppUserSchema = new mongoose.Schema({
         maxlength: 255,
         required: true,
     },
-    re_password: {
-        type: String,
-        minlength: 4,
-        maxlength: 255,
-        required: true,
-    },
     role: {
         type: String,
         enum: ["admin", "user"],

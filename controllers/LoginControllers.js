@@ -13,8 +13,8 @@ var bcrypt = require("bcrypt");
 // };
 
 const Register  = async (req, res, next) => {
-    const { usr, pwd, pwd2} = req.body;
-    await account.findOne({ username: usr }).exec(
+    const { usr, pwd} = req.body;
+    await AppUser.findOne({ username: usr }).exec(
       async (err, user) => {
         if (err) {
           return console.log(err);
@@ -24,14 +24,10 @@ const Register  = async (req, res, next) => {
         } else if (pwd.length < 4 ) {
           const errorPassword = "Password must be at least 4 characters !!!";
           return res.redirect(`/register?msg=${errorPassword}`);
-        }else if (pwd2 != pwd ) {
-          const errorPassword = "Confirm Password Error!";
-          return res.redirect(`/register?msg=${errorPassword}`);
         } else {
-          const newUser = new User({ 
+          const newUser = new AppUser({ 
             username: usr,
             password: pwd,
-            re_password: pwd2,
             role: "user",
         });
         await newUser.save();

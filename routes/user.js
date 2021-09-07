@@ -5,6 +5,6 @@ var { isUser } = require("../middleware/RequiresLogin");
 
 
 // Get Homepage
-router.get("/home", isUser);
+router.get("/home");
 
 module.exports = router;
