@@ -1,0 +1,28 @@
+{
+  "name": "project-code",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon ./bin/www",
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
+    "debug": "^2.6.9",
+    "express": "^4.16.4",
+    "express-session": "^1.17.2",
+    "hbs": "^4.0.6",
+    "http-errors": "^1.6.3",
+    "method-override": "^3.0.0",
+    "mongoose": "^6.0.3",
+    "morgan": "^1.9.1"
+  },
+  "main": "app.js",
+  "author": "Anh Tuan",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
