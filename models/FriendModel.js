@@ -1,10 +1,18 @@
 var mongoose = require("mongoose");
 var FriendSchema = mongoose.Schema({
-    Avata: String,
-    username: String,
+    Avata: {
+        type: String,
+    },
+    name: {
+        type: String,
+    },
     status: {
         type: Boolean,
         default: false,
+    },
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
     },
     timeCreated: {
         type: Date,

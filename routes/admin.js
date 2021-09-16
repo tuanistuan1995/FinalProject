@@ -4,7 +4,7 @@ var router = express.Router();
 var { isAdmin } = require("../middleware/RequiresLogin");
 
 // Get homepage
-router.get("/home", isAdmin, (req, res, next) => {
+router.get("/home",(req, res, next) => {
     res.render("adminViews/admin_home");
   });
 

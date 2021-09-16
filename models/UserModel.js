@@ -1,11 +1,22 @@
 var mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-    Avata: String,
-    Phone: String,
-    Address: String,
-    DoB: String,
-    Accept_friend: Boolean,
+    Avata: {
+        type: String,
+    },
+    Phone: {
+        type: String,
+    },
+    Address: {
+        type: String,
+    },
+    DoB: {
+        type: String,
+    },
+    Accept_friend: {
+        type: Boolean,
+        default: false,
+    },
     name: {
         type: String,
         required: true,
@@ -27,14 +38,18 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "AppUser",
     },
-    list_friend: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Friend",
-    },
-    messages: {
+    sender_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Messages",
     },
+    // list_friend: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Friend",
+    // },
+    // messages: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Messages",
+    // },
 });
 
 const User = mongoose.model("User", UserSchema);

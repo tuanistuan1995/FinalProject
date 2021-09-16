@@ -1,8 +1,22 @@
 var mongoose = require('mongoose');
 var Posts_reportSchema = mongoose.Schema({
+    name: {
+        type: String,
+    },
+    Avata: {
+        type: String,
+    },
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+    },
+    posts_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Posts",
+    },
+    status: {
+        type: Boolean,
+        default: false,
     },
     timeCreated: {
         type: Date,

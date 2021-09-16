@@ -1,7 +1,11 @@
 var mongoose = require("mongoose");
 var MessagesSchema = mongoose.Schema({
-    Avata: String,
-    username: String,
+    Avata: {
+        type: String,
+    },
+    name: {
+        type: String,
+    },
     text: {
         type: String,
         default: false,
@@ -9,6 +13,10 @@ var MessagesSchema = mongoose.Schema({
     timeCreated: {
         type: Date,
         default: () => Date.now(),
+    },
+    messager_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
     },
 });
 

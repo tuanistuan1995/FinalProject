@@ -1,6 +1,14 @@
 var mongoose = require("mongoose");
 var PostsSchema = mongoose.Schema({
-    Image: String,
+    name: {
+        type: String,
+    },
+    Avata: {
+        type: String,
+    },
+    Image: {
+        type: String,
+    },
     //delete: String,
     description: {
         type: String,
@@ -12,7 +20,7 @@ var PostsSchema = mongoose.Schema({
     },
     Like: {
         user_id: String,
-        username: String,
+        name: String,
         type: String,
         count: Number,
         require: true,
@@ -23,7 +31,7 @@ var PostsSchema = mongoose.Schema({
         default: 0,
         type: String,
         user_id: String,
-        username: String,
+        name: String,
         Avata: String,
         content: String,
         // user_id: {
