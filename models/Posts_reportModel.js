@@ -6,7 +6,7 @@ var Posts_reportSchema = mongoose.Schema({
     Avata: {
         type: String,
     },
-    user_id: {
+    author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },

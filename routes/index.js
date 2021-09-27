@@ -14,4 +14,5 @@ router.get('/Terms_Conditions', function(req, res, next) {
   res.render('Terms_Conditions');
 });
 
+
 module.exports = router;

@@ -19,15 +19,25 @@ const UserSchema = new mongoose.Schema({
     },
     name: {
         type: String,
+        minlength: 4,
+        maxlength: 10,
         required: true,
+        unique: true,
     },
     email: {
         type: String,
         required: true,
+        maxlength: 50,
+        unique: true,
     },
     gender: {
         type: String,
-        required: true,
+        enum: ["Male", "Female"],
+        default: "Male",
+    },
+    friend: {
+        type: Array,
+        default: [],
     },
     posts:
     {

@@ -1,16 +1,13 @@
 var mongoose = require("mongoose");
 var PostsSchema = mongoose.Schema({
-    name: {
+    title: {
         type: String,
     },
-    Avata: {
-        type: String,
-    },
-    Image: {
+    postImage: {
         type: String,
     },
     //delete: String,
-    description: {
+    desc: {
         type: String,
         required: true,
     },
@@ -19,19 +16,22 @@ var PostsSchema = mongoose.Schema({
         default: () => Date.now(),
     },
     Like: {
-        user_id: String,
+        //user_id: String,
         name: String,
-        type: String,
+        type: Array,
         count: Number,
+        Avata: String,
         require: true,
-        default: 0,
+        default: [],
     },
-    Comment: {
+    Comment: [
+        {
         require: true,
-        default: 0,
+        default: [],
         type: String,
-        user_id: String,
+        //user_id: String,
         name: String,
+        count: Number,
         Avata: String,
         content: String,
         // user_id: {
@@ -39,8 +39,9 @@ var PostsSchema = mongoose.Schema({
         //     ref: "User",
         // },
         timeCreated: { type: Date },
-    },
-    user_id: {
+        }
+    ],
+    author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
@@ -49,6 +50,13 @@ var PostsSchema = mongoose.Schema({
         ref: "Posts_report",
     },
 });
+
+PostsSchema.virtual("user", {
+    ref: "User",
+    localField: "_id",
+    foreignField: "posts",
+  });
+  
 
 const Posts = mongoose.model("Posts", PostsSchema);
 

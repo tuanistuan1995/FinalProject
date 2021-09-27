@@ -14,7 +14,7 @@ var MessagesSchema = mongoose.Schema({
         type: Date,
         default: () => Date.now(),
     },
-    messager_id: {
+    author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },

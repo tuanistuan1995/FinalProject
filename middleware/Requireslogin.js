@@ -4,7 +4,7 @@ const isAdmin = (req, res, next) => {
   } else {
     const msg =
       "You must be logged in with admin permission to view this page.";
-    return res.redirect(`/users/login?msg=${msg}`);
+    return res.redirect(`/account/login?msg=${msg}`);
   }
 };
 
@@ -14,7 +14,7 @@ const isUser = (req, res, next) => {
   } else {
     const msg =
       "You must be logged in with student permission to view this page.";
-    return res.redirect(`/users/login?msg=${msg}`);
+    return res.redirect(`/account/login?msg=${msg}`);
   }
 };
 

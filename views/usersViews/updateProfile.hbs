@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/insert.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Insert Product</title>
+</head>
+<style>
+    .update {
+        text-align: center;
+    }
+
+    .form-control {
+        width: 70%;
+    }
+
+    #submit1 {
+        margin-top: 20px;
+        margin-left: 10px;
+        outline: none;
+    }
+</style>
+
+<body>
+    <div class="update">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="sub-title">Upate Profile</h3>
+                <form id="uploadForm" action="/user/updateProfile" method="POST" enctype="multipart/form-data">
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">User name:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="Enter the name" id="name" name="name"
+                                required>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Upload Avatar
+                        </label>
+                        <div class="col-sm-10">
+                            <input name="avatar" id="avatar" type="file" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Phone number:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="Enter the phone number" id="phone"
+                                name="phone" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">User name:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="Enter name of your Article" id="name"
+                                name="name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Address:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="Enter name of your Article"
+                                id="address" name="address" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Email:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="Enter name of your Article" id="email"
+                                name="email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Gender:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="Enter name of your Article" id="gender"
+                                name="gender" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">DoB:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="Enter name of your Article" id="dob"
+                                name="dob" required>
+                        </div>
+                    </div>
+                <div>
+                    <button id="submit1" type="submit" class="btn btn-primary waves-effect" data-type="success"
+                        data-from="top" data-align="right" disabled>Submit</button>
+
+
+                 <p id="submit1" ><a href="/user/HomePage">Back to Home Page</a></p>
+
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
