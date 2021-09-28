@@ -63,6 +63,8 @@ const Posts_report = require("../models/Posts_reportModel");
 // };
 // };
 
+
+// addPost Success
 const addPost = async (req, res, next) => {
     const { title, postImage, desc, timeCreated, Like, Comment, author } = req.body;
     await Posts.findOne({ title: title }).exec(
@@ -89,94 +91,130 @@ const addPost = async (req, res, next) => {
     });
 };
 
+// Get Home
+const GetUserHome = (req, res, next) => {
+    return res.render("./usersViews/HomePage")
+}
+
+// Get User Profile
+const getUserProfile = (req, res, next) => {
+    return res.render("./usersViews/Profile")
+}
+
+// Get Ranking Post
+const getRankingPost = (req, res, next) => {
+    return res.render("./usersViews/Ranking_Post")
+}
+
+// Get Messages
+const getMessages = (req, res, next) => {
+    return res.render("./usersViews/Messages")
+}
+
+// Get Change Password
+const getChangePassword = (req, res, next) => {
+    return res.render("./usersViews/ChangePassword")
+}
+
+//Get Update Inormation
+const getupdateInfo = (req, res, next) => {
+    return res.render("./usersViews/UpdateInfo")
+}
+
+
 
 const getPost = function (req, res, next){
     return res.render("./usersViews/addPost")
 }
 
 
-const updateInfo = (req, res, next) => {
+// const updateInfo = (req, res, next) => {
 
-}
+// }
 
-const getUpdateAccount = (req, res, next) => {
-    let user = {};
-    const _id = req.params.id;
-    const { msg } = req.query;
+// const getUpdateAccount = (req, res, next) => {
+//     let user = {};
+//     const _id = req.params.id;
+//     const { msg } = req.query;
 
-    AppUser.findOne({ _id: _id })
-        .exec()
-        .then((value) => {
-            user = {
-                _id: _id,
-                username: value.username,
-            };
-            User.findOne({ account_id: _id })
-                .exec()
-                .then((info) => {
-                    res.render("usersViews/addPost", {
-                        err: msg,
-                        title: "Change password",
-                        data: {
-                            _id: _id,
-                            info: info,
-                            user: user,
-                        },
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
-                    res.redirect("/user/home");
-                });
-        })
-        .catch((err) => {
-            console.log(err);
-            res.redirect("/user/home");
-        });
-};
+//     AppUser.findOne({ _id: _id })
+//         .exec()
+//         .then((value) => {
+//             user = {
+//                 _id: _id,
+//                 username: value.username,
+//             };
+//             User.findOne({ account_id: _id })
+//                 .exec()
+//                 .then((info) => {
+//                     res.render("usersViews/addPost", {
+//                         err: msg,
+//                         title: "Change password",
+//                         data: {
+//                             _id: _id,
+//                             info: info,
+//                             user: user,
+//                         },
+//                     });
+//                 })
+//                 .catch((err) => {
+//                     console.log(err);
+//                     res.redirect("/user/home");
+//                 });
+//         })
+//         .catch((err) => {
+//             console.log(err);
+//             res.redirect("/user/home");
+//         });
+// };
 
-const updateAccount = async (req, res, next) => {
-    const { usr, pwd, pwd2, _id } = req.body;
-    const newValue = {};
-    if (usr) newValue.username = usr;
-    if (pwd) newValue.password = pwd;
+// const updateAccount = async (req, res, next) => {
+//     const { usr, pwd, pwd2, _id } = req.body;
+//     const newValue = {};
+//     if (usr) newValue.username = usr;
+//     if (pwd) newValue.password = pwd;
 
-    await AppUser.findOne({ _id: _id }).exec(async (err, user) => {
-        if (err) {
-            return console.log(err);
-        } else if (pwd.length < 4) {
-            const errorPassword = "Password must be at least 4 characters !!!";
-            return res.redirect(`/user/update_account/${_id}?msg=${errorPassword}`);
-        } else if (pwd2 != pwd) {
-            const errorPassword = "Confirm Password Error!";
-            return res.redirect(`/user/update_account/${_id}?msg=${errorPassword}`);
-        } else {
-            User.findOne({ account_id: _id })
-                .exec()
-                .then((value) => {
-                    AppUser.findOneAndUpdate(
-                        { _id: _id },
-                        { $set: newValue },
-                        { new: true },
-                        (err, data) => {
-                            if (err) {
-                                console.log(err);
-                                return res.render("usersViews/addPost");
-                            } else {
-                                console.log(data);
-                                return res.redirect("/user/home");
-                            }
-                        }
-                    );
-                });
-        }
-    });
-};
+//     await AppUser.findOne({ _id: _id }).exec(async (err, user) => {
+//         if (err) {
+//             return console.log(err);
+//         } else if (pwd.length < 4) {
+//             const errorPassword = "Password must be at least 4 characters !!!";
+//             return res.redirect(`/user/update_account/${_id}?msg=${errorPassword}`);
+//         } else if (pwd2 != pwd) {
+//             const errorPassword = "Confirm Password Error!";
+//             return res.redirect(`/user/update_account/${_id}?msg=${errorPassword}`);
+//         } else {
+//             User.findOne({ account_id: _id })
+//                 .exec()
+//                 .then((value) => {
+//                     AppUser.findOneAndUpdate(
+//                         { _id: _id },
+//                         { $set: newValue },
+//                         { new: true },
+//                         (err, data) => {
+//                             if (err) {
+//                                 console.log(err);
+//                                 return res.render("usersViews/addPost");
+//                             } else {
+//                                 console.log(data);
+//                                 return res.redirect("/user/home");
+//                             }
+//                         }
+//                     );
+//                 });
+//         }
+//     });
+// };
 
 module.exports = {
-    getUpdateAccount,
-    updateAccount,
-    updateInfo,
+    getChangePassword,
+    // updateAccount,
+    // updateInfo,
+    getupdateInfo,
     addPost,
     getPost,
+    GetUserHome,
+    getUserProfile,
+    getRankingPost,
+    getMessages,
 };

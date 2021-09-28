@@ -3,34 +3,41 @@ var router = express.Router();
 
 var { isUser } = require("../middleware/RequiresLogin");
 var {
-    getUpdateAccount,
-    updateAccount,
-    updateInfo,
+    getChangePassword,
+    // updateAccount,
+    // updateInfo,
+    getupdateInfo,
     addPost,
     getPost,
+    GetUserHome,
+    getUserProfile,
+    getRankingPost,
+    getMessages,
 } = require("../controllers/UserController");
 
 
 // Get Homepage
-router.get('/HomePage', isUser, function (req, res, next) {
-    res.render("./usersViews/HomePage");
-});
+router.get("/HomePage", isUser, GetUserHome);
 
-// router.get("/addPost", isUser);
-// router.get("/updateProfile", isUser);
-// router.get('/addPost', isUser, function (req, res, next) {
-//     res.render("./usersViews/addPost");
-// });
 
-router.get('/updateProfile', isUser, function (req, res, next) {
-    res.render("./usersViews/updateProfile");
-});
 
-// update password
-router.get("/update_account/:id", isUser, getUpdateAccount);
-router.put("/update_account", isUser, updateAccount);
+//Get Ranking Post
+router.get("/Ranking_Post", isUser, getRankingPost);
 
-router.put("/update_coordinator_information", isUser, updateInfo);
+
+//get Message
+router.get("/Messages", isUser, getMessages);
+
+// Get user Profile
+router.get("/Profile", isUser, getUserProfile);
+
+// update password   Note (/ChangePassword/:id)
+router.get("/ChangePassword", isUser, getChangePassword);
+// router.put("/ChangePassword", isUser, ChangePassword);
+
+// Update Information
+router.get("/UpdateInfo", isUser, getupdateInfo);
+// router.put("/UpdateInfo", isUser, updateInfo);
 
 
 router.get("/getPost", isUser, getPost);

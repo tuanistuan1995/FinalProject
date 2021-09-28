@@ -29,9 +29,9 @@ nav .nav-left > img {
   border-radius: 16px;
 }
 /* nav .nav-left a{
-      width: auto;
-      height: auto;
-  } */
+    width: auto;
+    height: auto;
+} */
 
 nav .nav-left > input {
   height: 40px;
@@ -107,17 +107,20 @@ nav .nav-right a > i {
 
 
 
-/* Ranking css */
-.ranking-container {
+/* Mess css */
+
+.mess-container {
   padding: 20px 15%;
   /* color: #626262; */
   background-color: #f0f1f3;
 }
 
-.ranking-details {
+.mess-details {
   background: #fff;
   padding: 20px;
   border-radius: 4px;
   position: relative;
   height: 570px;
 }
+
+

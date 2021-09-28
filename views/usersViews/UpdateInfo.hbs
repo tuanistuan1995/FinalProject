@@ -3,15 +3,14 @@
 
 <head>
   <title>MediaBook</title>
-  <link rel='stylesheet' href='/assets/css/ranking.css' />
+  <link rel='stylesheet' href='/assets/css/profile.css' />
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 
 <body>
@@ -22,15 +21,15 @@
     </div>
 
     <div class="nav-middle">
-      <a href="/user/HomePage" >
+      <a href="/user/HomePage">
         <i class="fa fa-home"></i>
       </a>
 
-      <a href="/user/Profile">
+      <a class="active">
         <i class="fa fa-user"></i>
       </a>
 
-      <a class="active">
+      <a href="/user/Ranking_Post">
         <i class="fa fa-bookmark"></i>
       </a>
 
@@ -50,8 +49,40 @@
     </div>
   </nav>
 
-  <div class="ranking-container">
-    <div class="ranking-details">
+  <div class="profile-container">
+    {{!-- <img src="/assets/images/curved0.jpg" class="cover-img"> --}}
+
+    <div class="profile-details">
+      <div class="pd-row">
+        <img src="/assets/images/member-1.png" class="pd-image">
+        <div>
+          <h3>Anh Tuan</h3>
+          <p>100 Friends - 1000 Follower</p>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="nav-content">
+      <a href="/user/Profile">
+        <h3>Posts</h3>
+      </a>
+
+      <a class="active">
+        <h3>Update Infomation</h3>
+      </a>
+
+      <a href="/user/ChangePassword">
+        <h3>Change Password</h3>
+      </a>
+    </div>
+
+    <!-- Main -->
+
+
+   <div class="mess-container">
+    <div class="mess-details">
 
     </div>
 
@@ -66,7 +97,7 @@
       </a>
     </div>
   </div>
-
+  </div>
 
 </body>
 
