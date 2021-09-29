@@ -18,11 +18,11 @@ var PostsSchema = mongoose.Schema({
     Like: {
         //user_id: String,
         name: String,
-        type: Array,
+        type: Number,
         count: Number,
-        Avata: String,
+        Avatar: String,
         require: true,
-        default: [],
+        default: 0,
     },
     Comment: [
         {
@@ -32,7 +32,7 @@ var PostsSchema = mongoose.Schema({
         //user_id: String,
         name: String,
         count: Number,
-        Avata: String,
+        Avatar: String,
         content: String,
         // user_id: {
         //     type: mongoose.Schema.Types.ObjectId,

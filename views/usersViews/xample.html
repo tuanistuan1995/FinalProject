@@ -1,0 +1,80 @@
+<!-- Form upload info -->
+
+<div class='dob'>
+  <label for='dob'>Birthday</label>
+  <input id='dob' placeholder='MM/DD/YYYY' type='text'>
+</div>
+
+<div class='gender'>
+  <label for='gender-female'>Gender</label>
+  <input checked='' id='gender-female' name='gender' type='radio' value='female'>
+  <label for='gender-female'>Female</label>
+  <input id='gender-male' name='gender' type='radio' value='male'>
+  <label for='gender-male'>Male</label>
+</div>
+
+
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Email address</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+</div>
+
+<form action="/action_page.php" class="was-validated">
+  <div class="form-group">
+    <label for="uname">Username:</label>
+    <input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname" required>
+    <div class="valid-feedback">Valid.</div>
+    <div class="invalid-feedback">Please fill out this field.</div>
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required>
+    <div class="valid-feedback">Valid.</div>
+    <div class="invalid-feedback">Please fill out this field.</div>
+  </div>
+  <div class="form-group form-check">
+    <label class="form-check-label">
+      <input class="form-check-input" type="checkbox" name="remember" required> I agree on blabla.
+      <div class="valid-feedback">Valid.</div>
+      <div class="invalid-feedback">Check this checkbox to continue.</div>
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<!-- uplode post -->
+
+<div class="post">
+  <h3 class="sub-title">Upload new Post</h3>
+  <div class="post-top">
+    <form action="/user/addPost" method="POST">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Article Title</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Enter name of your Post" id="title" name="title"
+            required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Upload Image:
+        </label>
+        <div class="col-sm-10">
+          <input name="postImage" id="postImage" class="form-control" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-10">
+          <textarea id="desc" name="desc" rows="5" cols="5" class="form-control" placeholder="Describe your post"
+            required></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary waves-effect">Submit</button>
+    </form>
+  </div>
+</div>

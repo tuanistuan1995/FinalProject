@@ -3,7 +3,7 @@ var Posts_reportSchema = mongoose.Schema({
     name: {
         type: String,
     },
-    Avata: {
+    Avatar: {
         type: String,
     },
     author: {

@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 var MessagesSchema = mongoose.Schema({
-    Avata: {
+    Avatar: {
         type: String,
     },
     name: {

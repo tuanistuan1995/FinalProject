@@ -11,6 +11,9 @@
     integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+
+
 </head>
 
 <body>
@@ -80,10 +83,78 @@
 
     <!-- Main -->
 
-
-   <div class="mess-container">
-    <div class="mess-details">
-
+    <div class="mess-container">
+      <div class="mess-details">
+        <h1 style="text-align: center; margin: 10px;">Update Infomation</h1>
+        <form class="uploadForm" action="#">
+          <div class="row">
+            <div class="col-25">
+              <label for="Avatar">Upload Avatar:</label>
+            </div>
+            <div class="col-75" style="margin-top: 15px;">
+              <input name="Avatar" id="Avatar" type="file" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="name">Username:</label>
+            </div>
+            <div class="col-75">
+              <input type="text" value="" id="name" name="name" placeholder="Your name..." required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="phone">Phone Number:</label>
+            </div>
+            <div class="col-75">
+              <input type="text" value="" id="phone" name="phone" placeholder="Your Phone Number...(example: 0123456789)" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="Address">Address:</label>
+            </div>
+            <div class="col-75">
+              <input type="text" value="" id="Address" name="Address" placeholder="City... (example: Ha Noi)" required>
+              {{!-- <select id="country" name="country">
+                <option value="australia">Australia</option>
+                <option value="canada">Canada</option>
+                <option value="usa">USA</option>
+              </select> --}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="Age">Age:</label>
+            </div>
+            <div class="col-75">
+              <input type="text" value="" id="Age" name="Age" placeholder="Age (example: 18)" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="email">Email:</label>
+            </div>
+            <div class="col-75">
+              <input type="text" value="" id="email" name="email" placeholder="name@example.com" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for='gender'>Gender</label>
+            </div>
+            <div class="col-75">
+              <input checked='' value="" id='gender-female' name='gender' type='radio' value='female'>
+              <label for='gender-female'>Female</label>
+              <input id='gender-male' name='gender' type='radio' value='male'>
+              <label for='gender-male'>Male</label>
+            </div>
+          </div>
+ 
+          <button id="submit" value="" type="submit">Submit</button>
+        </form>
+      </div>
     </div>
 
     <div class="footer-links">
@@ -96,7 +167,6 @@
         </p>
       </a>
     </div>
-  </div>
   </div>
 
 </body>

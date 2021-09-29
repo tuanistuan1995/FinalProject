@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 var FriendSchema = mongoose.Schema({
-    Avata: {
+    Avatar: {
         type: String,
     },
     name: {

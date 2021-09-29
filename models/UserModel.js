@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-    Avata: {
+    Avatar: {
         type: String,
     },
     Phone: {
@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
     Address: {
         type: String,
     },
-    DoB: {
+    Age: {
         type: String,
     },
     Accept_friend: {
