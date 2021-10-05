@@ -57,7 +57,7 @@
 
     <div class="profile-details">
       <div class="pd-row">
-        <img src="/assets/images/member-1.png" class="pd-image">
+        <img src="" class="pd-image">
         <div>
           <h3>Anh Tuan</h3>
           <p>100 Friends - 1000 Follower</p>
@@ -86,36 +86,39 @@
     <div class="mess-container">
       <div class="mess-details">
         <h1 style="text-align: center; margin: 10px;">Update Infomation</h1>
-        <form class="uploadForm" action="#">
+        <form class="uploadForm" action="/user/UpdateInfo" method="POST">
           <div class="row">
-            <div class="col-25">
-              <label for="Avatar">Upload Avatar:</label>
+            <div class="col-35">
+              <label for="Avatar">Upload Avatar: <img src="public/uploads/"
+              >
+              </label>
             </div>
-            <div class="col-75" style="margin-top: 15px;">
-              <input name="Avatar" id="Avatar" type="file" required>
+            <div class="col-65" style="margin-top: 15px;">
+              <input name="Avatar" id="Avatar" type="file">
             </div>
           </div>
           <div class="row">
-            <div class="col-25">
-              <label for="name">Username:</label>
+            <div class="col-35">
+              <label for="name">Full name: <strong>{{User.name}}</strong> </label>
             </div>
-            <div class="col-75">
+            <div class="col-65">
               <input type="text" value="" id="name" name="name" placeholder="Your name..." required>
             </div>
           </div>
           <div class="row">
-            <div class="col-25">
-              <label for="phone">Phone Number:</label>
+            <div class="col-35">
+              <label for="Phone">Phone Number: <strong>{{User.Phone}}</strong></label>
             </div>
-            <div class="col-75">
-              <input type="text" value="" id="phone" name="phone" placeholder="Your Phone Number...(example: 0123456789)" required>
+            <div class="col-65">
+              <input type="text" value="" id="Phone" name="Phone"
+                placeholder="Your Phone Number...(example: 0123456789)" required>
             </div>
           </div>
           <div class="row">
-            <div class="col-25">
+            <div class="col-35">
               <label for="Address">Address:</label>
             </div>
-            <div class="col-75">
+            <div class="col-65">
               <input type="text" value="" id="Address" name="Address" placeholder="City... (example: Ha Noi)" required>
               {{!-- <select id="country" name="country">
                 <option value="australia">Australia</option>
@@ -125,34 +128,41 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-25">
+            <div class="col-35">
               <label for="Age">Age:</label>
             </div>
-            <div class="col-75">
+            <div class="col-65">
               <input type="text" value="" id="Age" name="Age" placeholder="Age (example: 18)" required>
             </div>
           </div>
           <div class="row">
-            <div class="col-25">
+            <div class="col-35">
               <label for="email">Email:</label>
             </div>
-            <div class="col-75">
+            <div class="col-65">
               <input type="text" value="" id="email" name="email" placeholder="name@example.com" required>
             </div>
           </div>
           <div class="row">
-            <div class="col-25">
+            <div class="col-35">
               <label for='gender'>Gender</label>
             </div>
-            <div class="col-75">
+            <div class="col-65">
               <input checked='' value="" id='gender-female' name='gender' type='radio' value='female'>
               <label for='gender-female'>Female</label>
               <input id='gender-male' name='gender' type='radio' value='male'>
               <label for='gender-male'>Male</label>
             </div>
           </div>
- 
+          <input type="hidden" name="_method" value="PUT">
+          <input type="hidden" name="_id" value="{{User._id}}">
           <button id="submit" value="" type="submit">Submit</button>
+          <br>
+          {{#if err}}
+          <div class="alert-warning">
+            {{err}}
+          </div>
+          {{/if}}
         </form>
       </div>
     </div>

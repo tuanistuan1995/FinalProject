@@ -5,8 +5,9 @@ var { isUser } = require("../middleware/RequiresLogin");
 var {
     getChangePassword,
     // updateAccount,
-    // updateInfo,
+    updateInfo,
     getupdateInfo,
+    getPostDetail,
     addPost,
     getPost,
     GetUserHome,
@@ -14,7 +15,7 @@ var {
     getRankingPost,
     getMessages,
 } = require("../controllers/UserController");
-
+var { multerInstance } = require("../middleware/upload");
 
 // Get Homepage
 router.get("/HomePage", isUser, GetUserHome);
@@ -36,12 +37,15 @@ router.get("/ChangePassword", isUser, getChangePassword);
 // router.put("/ChangePassword", isUser, ChangePassword);
 
 // Update Information
-router.get("/UpdateInfo", isUser, getupdateInfo);
-// router.put("/UpdateInfo", isUser, updateInfo);
+router.get("/UpdateInfo/:id", isUser, getupdateInfo);
+router.put("/UpdateInfo", isUser, updateInfo);
 
+
+// Get  Post Detail
+router.get("/Post_Detail", isUser, getPostDetail);
 
 router.get("/getPost", isUser, getPost);
-router.post("/addPost", isUser, addPost);
+router.post("/addPost", multerInstance , isUser, addPost);
 
 
 

@@ -356,6 +356,10 @@ nav .nav-right a > i {
   transition: 0.3s ease-in;
   cursor: pointer;
 }
+.post .post-bottom .action a{
+  text-decoration: none
+}
+
 
 .post .post-bottom .action:hover {
   background: #eee;

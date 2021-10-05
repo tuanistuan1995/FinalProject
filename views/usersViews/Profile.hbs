@@ -50,11 +50,11 @@
   </nav>
 
   <div class="profile-container">
-    <img src="/assets/images/curved0.jpg" class="cover-img">
+    {{!-- <img src="/assets/images/curved0.jpg" class="cover-img"> --}}
 
     <div class="profile-details">
       <div class = "pd-row">
-        <img src="/assets/images/tuan.jpg" class="pd-image">
+        <img src="" class="pd-image">
         <div>
           <h3>Anh Tuan</h3>
           <p>100 Friends - 1000 Follower</p>
@@ -69,11 +69,11 @@
         <h3>Posts</h3>
       </a>
 
-      <a href="/user/UpdateInfo">
+      <a href="/user/UpdateInfo/{{User._id}}">
         <h3>Update Infomation</h3>
       </a>
 
-      <a href="/user/ChangePassword">
+      <a href="/user/ChangePassword/{{User._id}}">
         <h3>Change Password</h3>
       </a>
     </div>
@@ -82,7 +82,9 @@
     <div class="main-posts">
       <!-- Box 1 -->
       <div class="post-box">
+        <a href="/user/Post_Detail">
         <img src="/assets/images/sunset2.jpg" alt="">
+        </a>
 
         <div class="post-info">
           <div class="post-profile">

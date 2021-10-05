@@ -1,5 +1,6 @@
 var AppUser = require("../models/AppUserModel");
 var bcrypt = require("bcrypt");
+const User = require("../models/UserModel");
 
 const Signup = async (req, res, next) => {
     const user = AppUser({
@@ -12,34 +13,37 @@ const Signup = async (req, res, next) => {
     return res.send(user);
 };
 
-const Register  = async (req, res, next) => {
-    const { usr, pwd, pwd2} = req.body;
-    await AppUser.findOne({ username: usr }).exec(
-      async (err, user) => {
+const Register = async (req, res, next) => {
+    const { usr, pwd, pwd2 } = req.body;
+    await AppUser.findOne({ username: usr }).exec(async (err, user) => {
         if (err) {
-          return console.log(err);
+            return console.log(err);
         } else if (user) {
-          const errorUsername = "Username has already exist !!!";
-          return res.redirect(`/register?msg=${errorUsername}`);
-        } else if (pwd.length < 4 ) {
-          const errorPassword = "Password must be at least 4 characters !!!";
-          return res.redirect(`/register?msg=${errorPassword}`);
-        }else if (pwd2 != pwd ) {
+            const errorUsername = "Username has already exist !!!";
+            return res.redirect(`/register?msg=${errorUsername}`);
+        } else if (pwd.length < 4) {
+            const errorPassword = "Password must be at least 4 characters !!!";
+            return res.redirect(`/register?msg=${errorPassword}`);
+        } else if (pwd2 != pwd) {
             const errorPassword = "Confirm Password Error!";
             return res.redirect(`/register?msg=${errorPassword}`);
         } else {
-          const newUser = new AppUser({ 
-            username: usr,
-            password: pwd,
-            role: "user",
-        });
-        await newUser.save();
-        return res.redirect("/account/login");
-        // res.send("Successfully !");
-      };
+            const newUserAcc = new AppUser({
+                username: usr,
+                password: pwd,
+                role: "user",
+            });
+            await newUserAcc.save();
+            const UserAcc = await AppUser.findOne({username : usr});
+            const newUser = new User({
+                account_id : UserAcc._id,
+            })
+            await newUser.save();
+            return res.redirect("/account/login");
+            // res.send("Successfully !");
+        }
     });
-  };
-
+};
 
 const Login = (req, res, next) => {
     console.log(req.body);
@@ -64,7 +68,6 @@ const Login = (req, res, next) => {
                         return res.redirect(`/admin/admin_home`);
                     } else if (user.role === "user") {
                         return res.redirect(`/user/HomePage`);
-
                     }
                 } else {
                     const msg = "Username or Password is incorrect !!!";
@@ -74,7 +77,6 @@ const Login = (req, res, next) => {
         }
     });
 };
-
 
 const Logout = (req, res, next) => {
     if (req.session) {

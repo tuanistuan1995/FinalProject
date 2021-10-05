@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>MediaBook</title>
+  <link rel='stylesheet' href='/assets/css/postdetail.css'/>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-left">
+      <img src="/assets/images/logo11.png" alt="Logo">
+      <input type="text" name="search" placeholder="Search Post ...">
+    </div>
+
+    <div class="nav-middle">
+      <a href="/user/HomePage" class="active">
+        <i class="fa fa-home"></i>
+      </a>
+
+      <a href="/user/Profile">
+        <i class="fa fa-user"></i>
+      </a>
+
+      <a href="/user/Ranking_Post">
+        <i class="fa fa-bookmark"></i>
+      </a>
+
+      <a href="/user/Messages">
+        <i class="fab fa-facebook-messenger"></i>
+      </a>
+    </div>
+
+    <div class="nav-right">
+
+      <a href="#">
+        <i class="fa fa-bell"></i>
+      </a>
+      <a href="/account/logout">
+        <i class="fas fa-share-square"></i>
+      </a>
+    </div>
+  </nav>
+
+
+  <div class="container">
+    <div class="middle-panel">
+      {{!-- post --}}
+      <div class="post">
+        <div class="post-top">
+          <div class="dp">
+            <img src="/assets/images/tuan.jpg" alt="">
+          </div>
+          <div class="post-info">
+            <p class="name">Priyank Saksena</p>
+            <span class="time">1 week ago</span>
+          </div>
+          <i class="fas fa-ellipsis-h"></i>
+        </div>
+        <div class="post-content">
+          Happy birthday dear
+          <img src="/assets/images/sunset2.jpg" alt="Mountains">
+        </div>
+        <div class="post-bottom">
+          <div class="action">
+            <i class="far fa-thumbs-up"></i>
+            <span>Like</span>
+          </div>
+          <div class="action">
+            <i class="far fa-comment"></i>
+            <span>Comment</span>
+          </div>
+          <div class="action">
+            <i class="fa fa-share"></i>
+            <span>Report</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{!-- post --}}
+
+    
+  </div>
+
+
+
+</body>
+
+</html>

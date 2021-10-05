@@ -5,10 +5,6 @@ var { Login, Logout, Register } = require("../controllers/LoginControllers");
 
 const { route } = require(".");
 
-// /* GET account listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
 
 // Get login page
 router.get("/login", (req, res, next) => {

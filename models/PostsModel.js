@@ -16,12 +16,12 @@ var PostsSchema = mongoose.Schema({
         default: () => Date.now(),
     },
     Like: {
-        //user_id: String,
-        name: String,
+        author: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+        },
         type: Number,
         count: Number,
-        Avatar: String,
-        require: true,
         default: 0,
     },
     Comment: [
@@ -29,15 +29,12 @@ var PostsSchema = mongoose.Schema({
         require: true,
         default: [],
         type: String,
-        //user_id: String,
-        name: String,
+        author: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+        },
         count: Number,
-        Avatar: String,
         content: String,
-        // user_id: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: "User",
-        // },
         timeCreated: { type: Date },
         }
     ],
@@ -55,7 +52,7 @@ PostsSchema.virtual("user", {
     ref: "User",
     localField: "_id",
     foreignField: "posts",
-  });
+});
   
 
 const Posts = mongoose.model("Posts", PostsSchema);

@@ -276,6 +276,13 @@ nav .nav-right a > i {
 }
 
 
+.changepass-details {
+  background: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  position: relative;
+}
+
 
 input[type=text], select, textarea {
   width: 100%;
@@ -319,6 +326,18 @@ input[type=submit]:hover {
 .col-75 {
   float: left;
   width: 75%;
+  margin-top: 6px;
+}
+
+.col-35 {
+  float: left;
+  width: 35%;
+  margin-top: 6px;
+}
+
+.col-65 {
+  float: left;
+  width: 65%;
   margin-top: 6px;
 }
 

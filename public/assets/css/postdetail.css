@@ -1,0 +1,296 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+nav {
+  height: 70px;
+  width: 100%;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  box-shadow: 0px 1px 3px #ccc;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+nav .nav-left,
+nav .nav-right {
+  display: flex;
+  align-items: center;
+}
+
+nav .nav-left > img {
+  width: 51px;
+  border-radius: 16px;
+}
+/* nav .nav-left a{
+      width: auto;
+      height: auto;
+  } */
+
+nav .nav-left > input {
+  height: 40px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 15px;
+  outline: none;
+  background-color: #eee;
+  margin-left: 10px;
+}
+
+nav .nav-middle {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 5px;
+}
+
+nav .nav-middle a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  margin: 0px 25px;
+}
+
+nav .nav-middle a:hover {
+  background: rgb(233, 223, 223);
+}
+
+nav .nav-middle a.active {
+  color: royalblue;
+  position: relative;
+}
+
+nav .nav-middle a.active::after {
+  content: "";
+  width: 100%;
+  height: 3px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: royalblue;
+}
+
+nav .nav-middle a > i {
+  font-size: 28px;
+}
+
+nav .nav-right .profile,
+.container .left-panel .profile {
+  /* background: url('https://fontawesome.com/v5.9/icons/birthday-cake?style=solid'); */
+  height: 30px;
+  width: 30px;
+  background-size: cover;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+nav .nav-right a {
+  text-decoration: none;
+  color: #333;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: #eee;
+  display: grid;
+  place-items: center;
+  margin-left: 1rem;
+}
+
+nav .nav-right a > i {
+  font-size: 18px;
+}
+
+.container {
+  background: #eee;
+  display: flex;
+}
+
+.middle-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.middle-panel .story-section {
+  display: flex;
+  padding: 1rem;
+}
+
+.middle-panel .story-section .story {
+  width: 120px;
+  height: 200px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 0px 5px;
+  box-shadow: 0 0 5px 5px #ddd;
+  background: #fff;
+}
+
+.middle-panel .story-section .story > img {
+  height: 100%;
+  transition: 0.3s ease-in;
+}
+
+.middle-panel .story-section .story:hover > img {
+  transform: scale(1.05);
+}
+
+.middle-panel .story-section .story .dp-container {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border: royalblue 4px solid;
+}
+
+.middle-panel .story-section .story .dp-container > img {
+  width: 100%;
+  height: 100%;
+}
+
+.middle-panel .story-section .story .name {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  padding: 5px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.middle-panel .story-section .story.create .dp-image {
+  height: 80%;
+  overflow: hidden;
+}
+
+.middle-panel .story-section .story.create .dp-image img {
+  width: 100%;
+}
+
+.middle-panel .story-section .story.create .dp-container {
+  top: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  background: royalblue;
+  border: 4px solid #fff;
+}
+
+.middle-panel .story-section .story.create .dp-container i {
+  color: #fff;
+}
+
+.middle-panel .story-section .story.create .name {
+  color: #000;
+  font-size: 15px;
+  left: 10px;
+}
+
+.post {
+  width: 700px;
+  background: #fff;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
+  float: left;
+}
+
+.post .post-top {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.post .post-top .dp {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.post .post-top .dp > img {
+  width: 100%;
+  cursor: pointer;
+}
+
+.post .post-top .post-info {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.post .post-top .post-info .name {
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.post .post-top .post-info .time {
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.post .post-top i {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.post .post-top > input {
+  height: 40px;
+  padding: 5px 10px;
+  border-radius: 25px;
+  outline: none;
+  border: none;
+  flex: 1;
+  background: #eee;
+  margin-left: 10px;
+}
+
+.post .post-content {
+  font-size: 16px;
+  font-weight: normal;
+  padding: 10px;
+}
+
+.post .post-content > img {
+  width: 100%;
+  margin: 5px 0px;
+  height: 500px;
+  background-color: black;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.post .post-bottom {
+  box-shadow: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 5px 0px 5px;
+}
+
+.post .post-bottom .action {
+  padding: 10px;
+  border-radius: 10px;
+  transition: 0.3s ease-in;
+  cursor: pointer;
+}
+.post .post-bottom .action a {
+  text-decoration: none;
+}
+
+.post .post-bottom .action:hover {
+  background: #eee;
+}
+
+.post.create .post-bottom > .action {
+  color: #d74;
+}

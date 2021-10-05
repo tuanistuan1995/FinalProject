@@ -53,13 +53,16 @@
 
 
   <div class="container">
+
     <div class="left-panel">
       <div class="intro">
         <div class="avatar">
-          <button class="change">
-            {{!-- <img src="/assets/img/curved-images/curved0.jpg" alt="Avatar"> --}}
-            <img src="/assets/images/tuan.jpg" alt="Avatar">
-          </button>
+          <a class="change" href="/user/Profile">
+            {{!-- <a href="/user/Profile"> --}}
+              {{!-- <img src="/assets/images/tuan.jpg" alt="Avatar"> --}}
+              <img src="" alt="">
+              {{!-- </a> --}}
+          </a>
         </div>
         <ul>
           <li>
@@ -188,36 +191,41 @@
 
       <div class="post create">
         <h2 style="text-align: center; margin: 10px;">Upload new Post</h2>
-        
-          <form class="uploadForm" action="/user/addPost" method="POST">
-            <div class="row">
-              <div class="col-25">
-                <label>Article Title:</label>
-              </div>
-              <div class="col-75">
-                <input type="text" placeholder="Enter name of your Post" id="title" name="title" required>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label>Upload Image:</label>
-              </div>
-              <div class="col-75">
-                <input type="text" name="postImage" id="postImage" required>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label>Description:</label>
-              </div>
-              <div class="col-75">
-                <textarea id="desc" name="desc" placeholder="Describe your post" required></textarea>
-              </div>
-            </div>
 
-            <button id="submit" type="submit">Submit</button>
-          </form>
-        
+        <form class="uploadForm" action="/user/addPost" method="POST" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-25">
+              <label>Article Title:</label>
+            </div>
+            <div class="col-75">
+              <input type="text" placeholder="Enter name of your Post" id="title" name="title" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label>Upload Image:</label>
+            </div>
+            <div class="col-75">
+              <input name="image" id="image" type="file" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label>Description:</label>
+            </div>
+            <div class="col-75">
+              <textarea id="desc" name="desc" placeholder="Describe your post" required></textarea>
+            </div>
+          </div>
+
+          <button id="submit" type="submit">Submit</button>
+          {{#if err}}
+          <div class="alert-warning">
+            {{err}}
+          </div>
+          {{/if}}
+        </form>
+
       </div>
 
 
@@ -243,8 +251,10 @@
             <span>Like</span>
           </div>
           <div class="action">
-            <i class="far fa-comment"></i>
-            <span>Comment</span>
+            <a href="/user/Post_Detail">
+              <i class="far fa-comment"></i>
+              <span>Comment</span>
+            </a>
           </div>
           <div class="action">
             <i class="fa fa-share"></i>
