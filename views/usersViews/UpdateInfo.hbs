@@ -12,31 +12,31 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
-
-
 </head>
 
 <body>
   <nav>
     <div class="nav-left">
-      <img src="/assets/images/logo11.png" alt="Logo">
+      <a href="/user/HomePage">
+        <img style="height: 50px;" src="/assets/images/logo11.png" alt="Logo" />
+      </a>
       <input type="text" name="search" placeholder="Search Post ...">
     </div>
 
     <div class="nav-middle">
-      <a href="/user/HomePage">
+      <a href="/user/HomePage" title="Home">
         <i class="fa fa-home"></i>
       </a>
 
-      <a class="active">
+      <a class="active" title="Profile">
         <i class="fa fa-user"></i>
       </a>
 
-      <a href="/user/Ranking_Post">
+      <a href="/user/Ranking_Post" title="Saving">
         <i class="fa fa-bookmark"></i>
       </a>
 
-      <a href="/user/Messages">
+      <a href="/user/Messages" title="Message">
         <i class="fab fa-facebook-messenger"></i>
       </a>
     </div>
@@ -57,11 +57,12 @@
 
     <div class="profile-details">
       <div class="pd-row">
-        <img src="" class="pd-image">
+        <img style="height: 120px; width: 120px; margin-right: 15px;" src="/uploads/{{User.Avatar}}" alt="Avartar">
         <div>
-          <h3>Anh Tuan</h3>
+          <h3>{{User.name}}</h3>
           <p>100 Friends - 1000 Follower</p>
         </div>
+        <img src="/assets/images/curved0.jpg" class="cover-img">
       </div>
     </div>
 
@@ -69,32 +70,33 @@
 
     <div class="nav-content">
       <a href="/user/Profile">
-        <h3>Posts</h3>
+        <h3>Infomation</h3>
       </a>
-
+      <a href="/user/getPost/{{UserAcc._id}}">
+        <h3>List Posts</h3>
+      </a>
       <a class="active">
         <h3>Update Infomation</h3>
       </a>
-
-      <a href="/user/ChangePassword">
+      <a href="/user/ChangePassword/{{UserAcc._id}}">
         <h3>Change Password</h3>
       </a>
     </div>
 
     <!-- Main -->
-
+    {{!-- enctype="multipart/form-data" --}}
     <div class="mess-container">
       <div class="mess-details">
         <h1 style="text-align: center; margin: 10px;">Update Infomation</h1>
-        <form class="uploadForm" action="/user/UpdateInfo" method="POST">
+        <form class="uploadForm" action="/user/UpdateInfo" method="POST" enctype="multipart/form-data">
           <div class="row">
             <div class="col-35">
-              <label for="Avatar">Upload Avatar: <img src="public/uploads/"
-              >
+              <label> <img style="height: 120px; width: 120px; margin-left: 40px;" src="/uploads/{{User.Avatar}}"
+                  alt="Avartar" id="output">
               </label>
             </div>
-            <div class="col-65" style="margin-top: 15px;">
-              <input name="Avatar" id="Avatar" type="file">
+            <div class="col-65" style="margin-top: 66px;">
+              <input name="image" id="image" type="file" onchange="loadFile(event)">
             </div>
           </div>
           <div class="row">
@@ -102,7 +104,7 @@
               <label for="name">Full name: <strong>{{User.name}}</strong> </label>
             </div>
             <div class="col-65">
-              <input type="text" value="" id="name" name="name" placeholder="Your name..." required>
+              <input type="text" value="" id="name" name="name" placeholder="Your name...">
             </div>
           </div>
           <div class="row">
@@ -111,50 +113,50 @@
             </div>
             <div class="col-65">
               <input type="text" value="" id="Phone" name="Phone"
-                placeholder="Your Phone Number...(example: 0123456789)" required>
+                placeholder="Your Phone Number...(example: 0123456789)">
             </div>
           </div>
           <div class="row">
             <div class="col-35">
-              <label for="Address">Address:</label>
+              <label for="Address">Address: <strong>{{User.Address}}</strong></label>
             </div>
             <div class="col-65">
-              <input type="text" value="" id="Address" name="Address" placeholder="City... (example: Ha Noi)" required>
-              {{!-- <select id="country" name="country">
-                <option value="australia">Australia</option>
-                <option value="canada">Canada</option>
-                <option value="usa">USA</option>
-              </select> --}}
+              <input type="text" value="" id="Address" name="Address" placeholder="City... (example: Ha Noi)">
             </div>
           </div>
           <div class="row">
             <div class="col-35">
-              <label for="Age">Age:</label>
+              <label for="Age">Age: <strong>{{User.Age}}</strong></label>
             </div>
             <div class="col-65">
-              <input type="text" value="" id="Age" name="Age" placeholder="Age (example: 18)" required>
+              <input type="text" value="" id="Age" name="Age" placeholder="Age (example: 18)">
             </div>
           </div>
           <div class="row">
             <div class="col-35">
-              <label for="email">Email:</label>
+              <label for="email">Email: <strong>{{User.email}}</strong></label>
             </div>
             <div class="col-65">
-              <input type="text" value="" id="email" name="email" placeholder="name@example.com" required>
+              <input type="text" value="" id="email" name="email" placeholder="name@example.com">
             </div>
           </div>
           <div class="row">
             <div class="col-35">
-              <label for='gender'>Gender</label>
+              <label for='gender'>Gender: <strong>{{User.gender}}</strong></label>
             </div>
             <div class="col-65">
-              <input checked='' value="" id='gender-female' name='gender' type='radio' value='female'>
-              <label for='gender-female'>Female</label>
-              <input id='gender-male' name='gender' type='radio' value='male'>
-              <label for='gender-male'>Male</label>
+              <select id="gender" name="gender">
+                <option></option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+              {{!-- <input checked='' value="" id='gender' name='gender' type='radio' value='{{Female}}'>
+              <label for='gender'>Female</label>
+              <input id='gender' name='gender' type='radio' value='{{Male}}'>
+              <label for='gender'>Male</label> --}}
             </div>
           </div>
-          <input type="hidden" name="_method" value="PUT">
+          {{!-- <input type="hidden" name="_method" value="PUT"> --}}
           <input type="hidden" name="_id" value="{{User._id}}">
           <button id="submit" value="" type="submit">Submit</button>
           <br>
@@ -180,5 +182,14 @@
   </div>
 
 </body>
+<script>
+  var loadFile = function (event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function () {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
+</script>
 
 </html>

@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: sans-serif;
+  word-break: break-all;
 }
 
 nav {
@@ -225,7 +226,7 @@ nav .nav-right a > i {
 }
 
 .post .post-top .post-info {
-  margin-left: 10px;
+  margin-left: 40px;
   font-weight: bold;
 }
 
@@ -235,7 +236,7 @@ nav .nav-right a > i {
 }
 
 .post .post-top .post-info .time {
-  font-size: 12px;
+  font-size: 10px;
   cursor: pointer;
 }
 
@@ -274,7 +275,9 @@ nav .nav-right a > i {
   box-shadow: 1px solid #ddd;
   display: flex;
   justify-content: space-between;
-  padding: 5px 5px 0px 5px;
+  padding: 5px 5px 5px 5px;
+  border-bottom: 2px solid #dee2e6;
+  border-top: 2px solid #dee2e6;
 }
 
 .post .post-bottom .action {
@@ -293,4 +296,109 @@ nav .nav-right a > i {
 
 .post.create .post-bottom > .action {
   color: #d74;
+}
+
+.uploadForm .row {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#submit {
+  border: 0;
+  font-size: 20px;
+  color: royalblue;
+  background-color: white;
+}
+.col-40 {
+  float: left;
+  width: 44%;
+  margin-top: 6px;
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.col-60 {
+  float: left;
+  width: 202%;
+  margin-top: 6px;
+}
+
+.container .footer-links {
+  padding: 5px 1rem;
+}
+
+.container .footer-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 15px;
+  margin-left: 15px;
+}
+
+/* Comment */
+
+.form-group {
+  clear: both;
+}
+
+.comment-list {
+  padding: 0;
+  margin: 0;
+}
+.comment-list .children {
+  padding: 50px 0 0 80px;
+  margin: 0;
+  float: left;
+  width: 100%;
+}
+.comment-list li {
+  padding: 0;
+  margin: 0 0 30px 0;
+  float: left;
+  width: 100%;
+  clear: both;
+  list-style: none;
+}
+.comment-list li .vcard {
+  width: 80px;
+  float: left;
+}
+.comment-list li .vcard img {
+  width: 50px;
+  border-radius: 50%;
+}
+.comment-list li .comment-body {
+  float: right;
+  width: calc(100% - 80px);
+}
+.comment-list li .comment-body h3 {
+  font-size: 16px;
+}
+.comment-list li .comment-body .meta {
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: #ccc;
+}
+.comment-list li .comment-body .reply {
+  padding: 5px 10px;
+  background: #e6e6e6;
+  color: #000000;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  border-radius: 4px;
+}
+.comment-list li .comment-body .reply:hover {
+  color: #fff;
+  background: black;
 }

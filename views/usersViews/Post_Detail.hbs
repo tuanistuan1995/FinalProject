@@ -3,7 +3,7 @@
 
 <head>
   <title>MediaBook</title>
-  <link rel='stylesheet' href='/assets/css/postdetail.css'/>
+  <link rel='stylesheet' href='/assets/css/postdetail.css' />
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,9 @@
 <body>
   <nav>
     <div class="nav-left">
-      <img src="/assets/images/logo11.png" alt="Logo">
+      <a href="/user/HomePage">
+        <img style="height: 50px;" src="/assets/images/logo11.png" alt="Logo" />
+      </a>
       <input type="text" name="search" placeholder="Search Post ...">
     </div>
 
@@ -52,21 +54,26 @@
 
   <div class="container">
     <div class="middle-panel">
-      {{!-- post --}}
+
       <div class="post">
+
         <div class="post-top">
           <div class="dp">
-            <img src="/assets/images/tuan.jpg" alt="">
+            <img src="/uploads/{{Posts.author.Avatar}}" alt="Avartar">
           </div>
           <div class="post-info">
-            <p class="name">Priyank Saksena</p>
-            <span class="time">1 week ago</span>
+            <p class="name">{{Posts.author.name}}</p>
+            <span class="time">{{Posts.timeCreated}}</span>
           </div>
-          <i class="fas fa-ellipsis-h"></i>
+          <i class="fas fa-ellipsis-h">
+
+          </i>
         </div>
+
         <div class="post-content">
-          Happy birthday dear
-          <img src="/assets/images/sunset2.jpg" alt="Mountains">
+          <p style="color: royalblue; word-break: break-all;">#{{Posts.title}}</p>
+          <p style=" margin-top: 10px; margin-bottom: 5px; word-break: break-all;">{{Posts.desc}}</p>
+          <img src="/uploads/{{Posts.postImage}}" alt="Posts Image">
         </div>
         <div class="post-bottom">
           <div class="action">
@@ -78,15 +85,91 @@
             <span>Comment</span>
           </div>
           <div class="action">
-            <i class="fa fa-share"></i>
-            <span>Report</span>
+            <i class="fa fa-bookmark"></i>
+            <span>Save</span>
           </div>
         </div>
-      </div>
-    </div>
-    {{!-- post --}}
 
-    
+        <div class="pt-5 mt-5">
+          <h3 class="mb-5 font-weight-bold"
+            style="margin-top: 14px;margin-bottom: 14px; margin-left: 5px; font-size: 21px;">0 Comments</h3>
+          <ul class="comment-list">
+            {{#each Comment}}
+            <li class="comment">
+              <div class="vcard bio">
+                <img src="/uploads/{{author.Avatar}}" alt="Avartar">
+              </div>
+              <div class="comment-body">
+                <div class="post-info">
+                  <h3 class="name">{{author.name}}</h3>
+                  <span class="meta">{{author.timeCreated}}</span>
+                </div>
+                <p>
+                  {{content}}
+                </p>
+
+                {{!-- <p><a href="#" class="reply">Reply</a></p>
+              </div> --}}
+              {{!-- <ul class="children">
+                <li class="comment">
+                  <div class="vcard bio">
+                    <img src="/uploads/{{User.Avatar}}" alt="Avartar">
+                  </div>
+                  <div class="comment-body">
+                    <div class="post-info">
+                      <h3 class="name">{{User.name}}</h3>
+                      <span class="meta">{{User.timeCreated}}</span>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus,
+                      ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum
+                      impedit necessitatibus, nihil?</p>
+                    <p><a href="#" class="reply">Reply</a></p>
+                  </div>
+                </li>
+              </ul> --}}
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+
+        <div class="post-bottom">
+
+          <div class="post-top">
+            <div class="dp">
+              <img src="/uploads/{{User.Avatar}}" alt="Avartar">
+            </div>
+            
+            <form class="uploadForm" action="/user/doComment" method="POST">
+              <div class="row">
+                <div class="col-60">
+                  <textarea id="content" name="content" placeholder="Add comment..." required></textarea>
+                </div>
+                <div class="col-40">
+                  <input type="hidden" name="blog_id" value="{{Posts._id}}">
+                  <button id="submit">
+                    Add Comment
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a>
+          <p class="mb-0 text-secondary" style="text-align: center; margin-top: 16px;">
+            Copyright ©
+            <script>
+              document.write(new Date().getFullYear())
+            </script> Anh Tuan.
+          </p>
+        </a>
+      </div>
+
+    </div>
+
   </div>
 
 

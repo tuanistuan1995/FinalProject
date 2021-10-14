@@ -4,6 +4,12 @@ const UserSchema = new mongoose.Schema({
     Avatar: {
         type: String,
     },
+    name: {
+        type: String,
+        minlength: 4,
+        maxlength: 10,
+        unique: true,
+    },
     Phone: {
         type: String,
     },
@@ -16,12 +22,6 @@ const UserSchema = new mongoose.Schema({
     Accept_friend: {
         type: Boolean,
         default: false,
-    },
-    name: {
-        type: String,
-        minlength: 4,
-        maxlength: 10,
-        unique: true,
     },
     email: {
         type: String,
@@ -37,11 +37,12 @@ const UserSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
-    posts:
+    posts:[
     {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Posts",
-    },
+    }
+    ],  
     account_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "AppUser",
@@ -49,6 +50,10 @@ const UserSchema = new mongoose.Schema({
     sender_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Messages",
+    },
+    timeCreated: {
+        type: Date,
+        default: () => Date.now(),
     },
     // list_friend: {
     //     type: mongoose.Schema.Types.ObjectId,

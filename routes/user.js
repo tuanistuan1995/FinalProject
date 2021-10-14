@@ -4,7 +4,7 @@ var router = express.Router();
 var { isUser } = require("../middleware/RequiresLogin");
 var {
     getChangePassword,
-    // updateAccount,
+    ChangePassword,
     updateInfo,
     getupdateInfo,
     getPostDetail,
@@ -14,6 +14,7 @@ var {
     getUserProfile,
     getRankingPost,
     getMessages,
+    doComment,
 } = require("../controllers/UserController");
 var { multerInstance } = require("../middleware/upload");
 
@@ -33,20 +34,22 @@ router.get("/Messages", isUser, getMessages);
 router.get("/Profile", isUser, getUserProfile);
 
 // update password   Note (/ChangePassword/:id)
-router.get("/ChangePassword", isUser, getChangePassword);
-// router.put("/ChangePassword", isUser, ChangePassword);
+router.get("/ChangePassword/:id", isUser, getChangePassword);
+router.put("/ChangePassword", isUser, ChangePassword);
 
 // Update Information
 router.get("/UpdateInfo/:id", isUser, getupdateInfo);
-router.put("/UpdateInfo", isUser, updateInfo);
+router.post("/UpdateInfo", multerInstance, isUser, updateInfo);
 
 
 // Get  Post Detail
-router.get("/Post_Detail", isUser, getPostDetail);
+router.get("/Post_Detail/:id", isUser, getPostDetail);
 
-router.get("/getPost", isUser, getPost);
+// Add new Posts
+router.get("/getPost/:id", isUser, getPost);
 router.post("/addPost", multerInstance , isUser, addPost);
 
-
+//Do Comment
+router.post("/doComment", isUser, doComment);
 
 module.exports = router;

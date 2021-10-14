@@ -308,7 +308,7 @@ nav .nav-right a > i {
 }
 
 .post .post-top .post-info .time {
-  font-size: 12px;
+  font-size: 10px;
   cursor: pointer;
 }
 
@@ -334,20 +334,28 @@ nav .nav-right a > i {
   padding: 10px;
 }
 
-.post .post-content > img {
+/* .post .post-content a {
+  width: 100%;
+  height: 500px;
+  margin: 5px 0px;
+} */
+
+.post .post-content a > img {
   width: 100%;
   margin: 5px 0px;
   height: 500px;
   background-color: black;
   object-fit: contain;
-  border-radius: 8px;
+  /* border-radius: 8px; */
 }
 
 .post .post-bottom {
   box-shadow: 1px solid #ddd;
   display: flex;
   justify-content: space-between;
-  padding: 5px 5px 0px 5px;
+  padding: 5px 5px 5px 5px;
+  border-bottom: 2px solid #dee2e6;
+  border-top: 2px solid #dee2e6;
 }
 
 .post .post-bottom .action {
@@ -523,6 +531,7 @@ input[type="submit"]:hover {
   font-size: 17px;
   padding: 6px;
   border-radius: 7px;
-  margin-left: 44%;
+  margin-left: 34%;
+  width: 250px;
   margin-top: 5px;
 }

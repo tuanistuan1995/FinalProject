@@ -24,19 +24,11 @@ var PostsSchema = mongoose.Schema({
         count: Number,
         default: 0,
     },
-    Comment: [
+    Comment_id: [
         {
-        require: true,
-        default: [],
-        type: String,
-        author: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
         },
-        count: Number,
-        content: String,
-        timeCreated: { type: Date },
-        }
     ],
     author: {
         type: mongoose.Schema.Types.ObjectId,
@@ -48,11 +40,11 @@ var PostsSchema = mongoose.Schema({
     },
 });
 
-PostsSchema.virtual("user", {
-    ref: "User",
-    localField: "_id",
-    foreignField: "posts",
-});
+// PostsSchema.virtual("user", {
+//     ref: "User",
+//     localField: "_id",
+//     foreignField: "posts",
+// });
   
 
 const Posts = mongoose.model("Posts", PostsSchema);

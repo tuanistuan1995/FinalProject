@@ -108,9 +108,7 @@ nav .nav-right a > i {
 }
 
 .cover-img {
-  width: 100%;
-  border-radius: 6px;
-  margin-bottom: 14px;
+  width: 72%;
 }
 
 .main-posts {
@@ -204,7 +202,7 @@ nav .nav-right a > i {
 
 .nav-content {
     width: 100%;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     top: 0;
     z-index: 99;
     display: flex;
@@ -272,7 +270,7 @@ nav .nav-right a > i {
   padding: 20px;
   border-radius: 4px;
   position: relative;
-  height: 570px;
+
 }
 
 
