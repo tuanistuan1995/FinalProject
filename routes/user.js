@@ -12,7 +12,9 @@ var {
     getPost,
     GetUserHome,
     getUserProfile,
-    getRankingPost,
+    getSavePosts,
+    SavePosts,
+    unSavePosts,
     getMessages,
     doComment,
 } = require("../controllers/UserController");
@@ -21,10 +23,11 @@ var { multerInstance } = require("../middleware/upload");
 // Get Homepage
 router.get("/HomePage", isUser, GetUserHome);
 
+//Get Saving Posts
+router.get("/SavePosts", isUser, getSavePosts);
+router.put("/SavePosts/:id", isUser, SavePosts);
+router.delete("/unSavePosts", isUser, unSavePosts);
 
-
-//Get Ranking Post
-router.get("/Ranking_Post", isUser, getRankingPost);
 
 
 //get Message
@@ -33,14 +36,13 @@ router.get("/Messages", isUser, getMessages);
 // Get user Profile
 router.get("/Profile", isUser, getUserProfile);
 
-// update password   Note (/ChangePassword/:id)
+// update password   
 router.get("/ChangePassword/:id", isUser, getChangePassword);
 router.put("/ChangePassword", isUser, ChangePassword);
 
 // Update Information
 router.get("/UpdateInfo/:id", isUser, getupdateInfo);
 router.post("/UpdateInfo", multerInstance, isUser, updateInfo);
-
 
 // Get  Post Detail
 router.get("/Post_Detail/:id", isUser, getPostDetail);

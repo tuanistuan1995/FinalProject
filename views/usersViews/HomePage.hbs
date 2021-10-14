@@ -19,7 +19,7 @@
   <nav>
     <div class="nav-left">
       <a href="/user/HomePage">
-      <img style="height: 50px;" src="/assets/images/logo11.png" alt="Logo" />
+        <img style="height: 50px;" src="/assets/images/logo11.png" alt="Logo" />
       </a>
       <input type="text" name="search" placeholder="Search Post ..." />
     </div>
@@ -33,7 +33,7 @@
         <i class="fa fa-user"></i>
       </a>
 
-      <a href="/user/Ranking_Post" title="Saving">
+      <a href="/user/SavePosts" title="Saving">
         <i class="fa fa-bookmark"></i>
       </a>
 
@@ -48,7 +48,8 @@
         <i class="fa fa-bell"></i>
       </a>
       <a href="/account/logout">
-        <i class="fas fa-share-square"></i>
+        {{!-- <i class="fas fa-share-square"></i> --}}
+        <img style="width: 40px;" src="/assets/images/logout.png">
       </a>
     </div>
   </nav>
@@ -68,6 +69,7 @@
         <ul>
           <li>
             <h2>{{User.name}}</h2>
+            <img style="width: 17px; margin-left: 7px;" src="/assets/images/verify.png" title="Verified">
           </li>
           <li>
             <i class="fas fa-map-marker-alt">
@@ -210,7 +212,7 @@
           <div class="row">
             <div class="col-25">
               <label>Upload Image: </label>
-              <img style="width: 250px; height: 250px; margin-left:200px; object-fit: contain;" id="output"/>
+              <img style="width: 250px; height: 250px; margin-left:200px; object-fit: contain;" id="output" />
             </div>
             <div class="col-75">
               <input name="image" id="image" type="file" onchange="loadFile(event)" required />
@@ -234,7 +236,7 @@
         </form>
 
       </div>
-      
+
 
       {{!-- POSTS --}}
       {{#each Posts}}
@@ -245,7 +247,9 @@
             <img src="/uploads/{{author.Avatar}}" alt="Avartar">
           </div>
           <div class="post-info">
-            <p class="name">{{author.name}}</p>
+            <p class="name">{{author.name}}<img style="width: 13px; margin-left: 3px;" src="/assets/images/verify.png"
+                title="Verified">
+            </p>
             <span class="time">{{timeCreated}}</span>
           </div>
           <i class="fas fa-ellipsis-h"></i>
@@ -255,7 +259,7 @@
           <p style="color: royalblue; word-break: break-all;">#{{title}}</p>
           <p style=" margin-top: 10px; margin-bottom: 5px; word-break: break-all;">{{desc}}</p>
           <a href="/user/Post_Detail/{{_id}}">
-          <img src="/uploads/{{postImage}}" alt="Posts Image">
+            <img src="/uploads/{{postImage}}" alt="Posts Image">
           </a>
         </div>
         <div class="post-bottom">
@@ -270,8 +274,12 @@
             </a>
           </div>
           <div class="action">
-            <i class="fa fa-bookmark"></i>
-            <span>Save</span>
+            {{!-- <i class="fa fa-bookmark"></i> --}}
+            <form action="/user/SavePosts/{{_id}}" method="POST">
+              <input type="hidden" name="_method" value="PUT">
+              <button style="border: 0; font-size: 18px;background: white;" type="submit" class="fa fa-bookmark">
+                <span style="font-family: auto;"> Save</span></button>
+            </form>
           </div>
         </div>
       </div>
@@ -280,7 +288,7 @@
       {{!-- POSTS --}}
     </div>
 
-    <div class="right-panel" style="  background: white; border-radius: 10px;">
+    <div class="right-panel">
       {{! <div class="pages-section">
         <h4>Your pages</h4>
         <a class='page' href="#">
@@ -305,21 +313,6 @@
           </div>
           <p class="name">Friend 1</p>
         </a>
-
-        <a class="friend" href="#">
-          <div class="dp">
-            <img src="/assets/images/tuan.jpg" alt="" />
-          </div>
-          <p class="name">Friend 2</p>
-        </a>
-
-        <a class="friend" href="#">
-          <div class="dp">
-            <img src="/assets/images/tuan.jpg" alt="" />
-          </div>
-          <p class="name">Friend 3</p>
-        </a>
-
         <a class="friend" href="#">
           <div class="dp">
             <img src="/assets/images/tuan.jpg" alt="" />
@@ -333,10 +326,10 @@
 </body>
 
 <script>
-  var loadFile = function(event) {
+  var loadFile = function (event) {
     var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
-    output.onload = function() {
+    output.onload = function () {
       URL.revokeObjectURL(output.src) // free memory
     }
   };

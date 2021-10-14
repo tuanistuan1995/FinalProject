@@ -5,6 +5,7 @@ const UserModel = require("../models/UserModel");
 const Messages = require("../models/MessagesModel");
 const Posts_report = require("../models/Posts_reportModel");
 const Comment = require("../models/commentModel");
+const SavePostsModel = require("../models/SavePostsModel");
 
 // Get Home
 // const GetUserHome = (req, res, next) => {
@@ -44,8 +45,6 @@ const GetUserHome = async (req, res, next) => {
     const UserAcc = await AppUser.findOne({ _id: req.session.userId });
     const PostsModel = await Posts.find({}).populate("author").sort({timeCreated:-1});
     // .populate({ path: 'author', select: 'Avatar'})
-    // .populate({ path: 'author', select: 'name'});
-    console.log(PostsModel);
     return res.render("usersViews/HomePage", {
       Posts: PostsModel,
       User: User,
@@ -125,10 +124,6 @@ const getUserProfile = async (req, res, next) => {
   }
 };
 
-// Get Ranking Post
-const getRankingPost = (req, res, next) => {
-  return res.render("./usersViews/Ranking_Post");
-};
 
 // Get Messages
 const getMessages = (req, res, next) => {
@@ -281,6 +276,45 @@ const doComment = async (req, res, next) => {
   }
 };
 
+// Get Saving Posts
+const getSavePosts = async (req, res, next) => {
+  const allSavePosts = await SavePostsModel.find({}).populate("posts_id");
+  return res.render("usersViews/SavePosts", {
+    SavePosts : allSavePosts,
+  });
+
+};
+
+const unSavePosts = async (req, res, next) =>{
+  const { _id } = req.body;
+  try {
+  const aaa = await SavePostsModel.findOneAndRemove({_id:_id});
+  const abc = await UserModel.findOneAndUpdate({posts_id: aaa._id},{$pull: {posts_id: aaa._id}});
+  
+  return res.redirect("/user/getSavePosts")
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const SavePosts = async (req, res, next) => {
+  const _id = req.params.id;
+  const User = await UserModel.findOne({ account_id: req.session.userId });
+  try {
+    const newsaveposts = await new SavePostsModel({
+      posts_id: _id,
+      user_id: User._id,
+    });
+    const takeSavePosts = await newsaveposts.save();
+    await User.saveposts_id.push(takeSavePosts);
+    await User.save();
+    return res.redirect("/user/SavePosts");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
 module.exports = {
   getChangePassword,
   ChangePassword,
@@ -290,7 +324,9 @@ module.exports = {
   getPost,
   GetUserHome,
   getUserProfile,
-  getRankingPost,
+  getSavePosts,
+  SavePosts,
+  unSavePosts,
   getMessages,
   getPostDetail,
   doComment,

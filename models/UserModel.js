@@ -55,6 +55,12 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: () => Date.now(),
     },
+    saveposts_id: [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "SavePosts",
+        },
+    ],
     // list_friend: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "Friend",

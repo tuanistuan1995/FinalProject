@@ -47,15 +47,26 @@
         <i class="fa fa-bell"></i>
       </a>
       <a href="/account/logout">
-        <i class="fas fa-share-square"></i>
+        <img style="width: 40px;" src="/assets/images/logout.png">
       </a>
     </div>
   </nav>
 
+  {{!-- Main --}}
+
   <div class="ranking-container">
     <div class="ranking-details">
-
+      <div class="main-posts">
+        {{#each SavePosts}}
+        <div class="post-box">
+          <a href="/user/Post_Detail/{{posts_id._id}}">
+            <img src="/uploads/{{posts_id.postImage}}" alt="Posts Image">
+          </a>
+        </div>
+        {{/each}}
+      </div>
     </div>
+
 
     <div class="footer-links">
       <a>

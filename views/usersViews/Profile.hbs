@@ -31,7 +31,7 @@
         <i class="fa fa-user"></i>
       </a>
 
-      <a href="/user/Ranking_Post" title="Saving">
+      <a href="/user/SavePosts" title="Saving">
         <i class="fa fa-bookmark"></i>
       </a>
 
@@ -46,7 +46,7 @@
         <i class="fa fa-bell"></i>
       </a>
       <a href="/account/logout">
-        <i class="fas fa-share-square"></i>
+        <img style="width: 40px;" src="/assets/images/logout.png">
       </a>
     </div>
   </nav>
@@ -54,9 +54,10 @@
   <div class="profile-container">
     <div class="profile-details">
       <div class="pd-row">
-        <img style="height: 120px; width: 120px; margin-right: 15px;" src="/uploads/{{User.Avatar}}" alt="Avartar">
+        <img style="height: 120px; width: 120px; margin-right: 15px; object-fit: cover;" src="/uploads/{{User.Avatar}}" alt="Avartar">
         <div>
-          <h3>{{User.name}}</h3>
+          <h3>{{User.name}}
+          <img style="width: 17px;" src="/assets/images/verify.png" title="Verified"></h3>
           <p>100 Friends - 1000 Follower</p>
         </div>
         <img src="/assets/images/curved0.jpg" class="cover-img">
@@ -84,9 +85,10 @@
         <h1 style="text-align: center; margin: 10px;">User Infomation</h1>
 
         <div class="row" style="text-align: center;font-size: 22px;">
-          <img style="height: 120px; width: 120px;" src="/uploads/{{User.Avatar}}" alt="Avartar">
+          <img style="height: 120px; width: 120px; object-fit: cover;" src="/uploads/{{User.Avatar}}" alt="Avartar">
           <div class="row">
-            <label for="name">Full name: <strong>{{User.name}}</strong> </label>
+            <label for="name">Full name: <strong>{{User.name}}</strong> 
+            <img style="width: 17px;" src="/assets/images/verify.png" title="Verified"></label>
           </div>
           <div class="row">
             <label for="Phone">Phone Number: <strong>{{User.Phone}}</strong></label>
