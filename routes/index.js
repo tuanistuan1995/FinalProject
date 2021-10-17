@@ -7,7 +7,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/register', function(req, res, next) {
-  res.render('register');
+  const { msg } = req.query;
+  res.render('register', {err: msg});
 });
 
 router.get('/Terms_Conditions', function(req, res, next) {

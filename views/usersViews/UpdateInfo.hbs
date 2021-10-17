@@ -104,7 +104,7 @@
               <label for="name">Full name: <strong>{{User.name}}</strong> </label>
             </div>
             <div class="col-65">
-              <input type="text" value="" id="name" name="name" placeholder="Your name...">
+              <input type="text" value="" id="name" name="name" placeholder="Your name..." required>
             </div>
           </div>
           <div class="row">
@@ -160,11 +160,6 @@
           <input type="hidden" name="_id" value="{{User._id}}">
           <button id="submit" value="" type="submit">Submit</button>
           <br>
-          {{#if err}}
-          <div class="alert-warning">
-            {{err}}
-          </div>
-          {{/if}}
         </form>
       </div>
     </div>

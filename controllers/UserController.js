@@ -85,7 +85,6 @@ const getPost = async (req, res, next) => {
     const User = await UserModel.findOne({ account_id: req.session.userId });
     const UserAcc = await AppUser.findOne({ _id: req.session.userId });
     const PostsModel = await Posts.find({ author: User._id });
-    console.log(PostsModel);
     return res.render("usersViews/getPost", {
       Posts: PostsModel,
       UserAcc: UserAcc,
@@ -149,7 +148,6 @@ const getupdateInfo = (req, res, next) => {
 const updateInfo = async (req, res, next) => {
   const { Avatar, Phone, Address, Age, name, email, gender, _id } = req.body;
   const newValue = {};
-  //if (Avatar) newValue.Avatar = Avatar;
   if (req.file) {
     const image = req.file.filename;
     newValue.Avatar = image;
@@ -202,6 +200,8 @@ const getPostDetail = async (req, res, next) => {
 // Get Change Password
 const getChangePassword = (req, res, next) => {
   const _id = req.params.id;
+  const { msg } = req.query;
+  const { msgs } = req.query;
   AppUser.findOne({ _id: _id })
     .exec()
     .then((UserAcc) => {
@@ -211,10 +211,13 @@ const getChangePassword = (req, res, next) => {
           return res.render("./usersViews/ChangePassword", {
             UserAcc: UserAcc,
             User: User,
+            err : msg,
+            errs : msgs,
           });
         });
     });
 };
+
 const ChangePassword = async (req, res, next) => {
   const { pwd, pwd2, _id } = req.body;
   const newValue = {};
@@ -240,9 +243,9 @@ const ChangePassword = async (req, res, next) => {
             return res.redirect(`user/ChangePassword`);
           } else {
             console.log(data);
-            const msg = "Succsessfully!";
+            const msgs = "Succsessfully!";
             return res.redirect(
-              `/user/ChangePassword/${UserAcc._id}?msg=${msg}`
+              `/user/ChangePassword/${UserAcc._id}?msgs=${msgs}`
             );
           }
         }
@@ -278,7 +281,8 @@ const doComment = async (req, res, next) => {
 
 // Get Saving Posts
 const getSavePosts = async (req, res, next) => {
-  const allSavePosts = await SavePostsModel.find({}).populate("posts_id");
+  const User = await UserModel.findOne({account_id: req.session.userId})
+  const allSavePosts = await SavePostsModel.find({user_id: User._id}).populate("posts_id");
   return res.render("usersViews/SavePosts", {
     SavePosts : allSavePosts,
   });
@@ -295,7 +299,7 @@ const unSavePosts = async (req, res, next) =>{
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 const SavePosts = async (req, res, next) => {
   const _id = req.params.id;

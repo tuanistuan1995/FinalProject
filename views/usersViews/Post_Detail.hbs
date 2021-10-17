@@ -11,6 +11,36 @@
     integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+
+  <style type="text/css">
+    .comment-list {
+      width: 680px;
+      height: 250px;
+      overflow-x: hidden;
+      overflow-y: auto;
+
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  </style>
 </head>
 
 <body>
@@ -175,7 +205,17 @@
 
   </div>
 
-
+  <script>
+    var data = {};
+    data.fielter_data1 = document.getElementById('content');
+    $.ajax({
+      type="POST",
+      url: "/user/doComment",
+      data: data,
+      success: function () { },
+      error: function () { }
+    });
+  </script>
 
 </body>
 

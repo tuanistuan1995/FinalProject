@@ -18,6 +18,7 @@
       <div class="page-header min-vh-75">
         <div class="container">
           <div class="row">
+
             <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-left bg-transparent">
@@ -29,9 +30,9 @@
                     <div class="mb-3">
                       <input type="text" class="form-control" name="usr" placeholder="Type your username"
                         aria-label="Username" aria-describedby="username-addon" required>
-                    </div >
+                    </div>
                     <label>Password</label>
-                    <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
                       <input type="password" class="form-control" name="pwd" placeholder="Type your password"
                         aria-label="Password" aria-describedby="password-addon" required>
                     </div>
@@ -40,8 +41,9 @@
                     </div>
                     <br>
                     {{#if err}}
-                    <div class="alert-warning" >
+                    <div id="alert-warning" role="alert" class="alert alert-success alert-dismissible">
                       {{err}}
+                      <button type="button" class="close" data-dismiss="alert"></button>
                     </div>
                     {{/if}}
                   </form>
@@ -73,7 +75,10 @@
           </p>
         </div>
       </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </section>
   </main>
 </body>
+
 </html>
