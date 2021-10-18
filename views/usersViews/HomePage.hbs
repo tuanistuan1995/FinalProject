@@ -257,7 +257,7 @@
 
         <div class="post-content">
           <p style="color: royalblue; word-break: break-all;">#{{title}}</p>
-          <p style=" margin-top: 10px; margin-bottom: 5px; word-break: break-all;">{{desc}}</p>
+          <p style=" margin-top: 10px; margin-bottom: 5px; word-break: break-all;"><strong>DESC: </strong>{{desc}}</p>
           <a href="/user/Post_Detail/{{_id}}">
             <img src="/uploads/{{postImage}}" alt="Posts Image">
           </a>
@@ -323,16 +323,17 @@
       </div>
     </div>
   </div>
+  <script>
+    var loadFile = function (event) {
+      var output = document.getElementById('output');
+      output.src = URL.createObjectURL(event.target.files[0]);
+      output.onload = function () {
+        URL.revokeObjectURL(output.src) // free memory
+      }
+    };
+  </script>
+
 </body>
 
-<script>
-  var loadFile = function (event) {
-    var output = document.getElementById('output');
-    output.src = URL.createObjectURL(event.target.files[0]);
-    output.onload = function () {
-      URL.revokeObjectURL(output.src) // free memory
-    }
-  };
-</script>
 
 </html>

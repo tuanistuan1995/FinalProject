@@ -5,14 +5,20 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var methodOverride = require("method-override");
 var session = require("express-session");
+var moment = require('moment'); 
+var exphbs = require('express-handlebars');
+
 
 var indexRouter = require('./routes/index');
 var accountRouter = require('./routes/account');
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 
+const apiRouter = require('./routes/api');
+
 var app = express();
 var mongoose = require("mongoose");
+// const { format } = require('path');
 
 // connect to Database
 const url =
@@ -38,9 +44,24 @@ app.use(
   })
 );
 
+// exphbs.registerHelper('dateFormat', function (date, options) {
+//   const formatToUse = (arguments[1] && arguments[1].hash && arguments[1].hash.format) || "DD/MM/YYYY"
+//   return moment(date).format(formatToUse);
+// });
+
+
+// const hbs = exphbs.create({
+//   helpers: {
+//     generateDate : (date, format) => {
+//       return moment(date).format(format)
+//     }
+//   }
+// })
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -62,7 +83,7 @@ app.use('/', indexRouter);
 app.use('/account', accountRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter);
-
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

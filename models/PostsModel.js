@@ -15,20 +15,23 @@ var PostsSchema = mongoose.Schema({
         type: Date,
         default: () => Date.now(),
     },
-    Like: {
-        author: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+    Like: [
+        {
+            author: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+            },
+            type: Number,
+            count: true,
+            default: 0,
         },
-        type: Number,
-        count: Number,
-        default: 0,
-    },
+    ],
     Comment_id: [
         {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Comment",
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comment",
         },
+        
     ],
     author: {
         type: mongoose.Schema.Types.ObjectId,
@@ -45,7 +48,6 @@ var PostsSchema = mongoose.Schema({
 //     localField: "_id",
 //     foreignField: "posts",
 // });
-  
 
 const Posts = mongoose.model("Posts", PostsSchema);
 

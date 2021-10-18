@@ -1,6 +1,6 @@
 var AppUser = require("../models/AppUserModel");
 var bcrypt = require("bcrypt");
-const User = require("../models/UserModel");
+const UserModel = require("../models/UserModel");
 
 const Signup = async (req, res, next) => {
   const user = AppUser({
@@ -35,11 +35,11 @@ const Register = async (req, res, next) => {
       });
       await newUserAcc.save();
       const UserAcc = await AppUser.findOne({ username: usr });
-      const newUser = new User({
+      const newUser = new UserModel({
         account_id: UserAcc._id,
       });
       await newUser.save();
-      return res.redirect("/account/login");
+      return res.redirect("/");
       // res.send("Successfully !");
     }
   });

@@ -10,15 +10,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+  {{!--
+  <script src="/assets/js/moment.js"></script> --}}
 
   <style type="text/css">
-    .comment-list {
-      width: 680px;
-      height: 250px;
+    .scrollbar {
+      margin-left: 15px;
+      height: 525px;
       overflow-x: hidden;
       overflow-y: auto;
-
+      margin-bottom: 15px;
     }
 
     /* width */
@@ -44,166 +45,125 @@
 </head>
 
 <body>
-  <nav>
-    <div class="nav-left">
-      <a href="/user/HomePage">
-        <img style="height: 50px;" src="/assets/images/logo11.png" alt="Logo" />
-      </a>
-      <input type="text" name="search" placeholder="Search Post ...">
+  <div id="container">
+    <div class="left">
+      <div class="post-content">
+        <img src="/uploads/{{Posts.postImage}}" alt="Posts Image">
+      </div>
     </div>
-
-    <div class="nav-middle">
-      <a href="/user/HomePage" class="active">
-        <i class="fa fa-home"></i>
-      </a>
-
-      <a href="/user/Profile">
-        <i class="fa fa-user"></i>
-      </a>
-
-      <a href="/user/SavePosts">
-        <i class="fa fa-bookmark"></i>
-      </a>
-
-      <a href="/user/Messages">
-        <i class="fab fa-facebook-messenger"></i>
-      </a>
-    </div>
-
-    <div class="nav-right">
-
-      <a href="#">
-        <i class="fa fa-bell"></i>
-      </a>
-      <a href="/account/logout">
-        <img style="width: 40px;" src="/assets/images/logout.png">
-      </a>
-    </div>
-  </nav>
-
-
-  <div class="container">
-    <div class="middle-panel">
-
+    <div class="right">
       <div class="post">
+        <nav>
+          <div class="nav-middle">
+            <a href="/user/HomePage">
+              <i class="fa fa-home"></i>
+            </a>
 
-        <div class="post-top">
-          <div class="dp">
-            <img src="/uploads/{{Posts.author.Avatar}}" alt="Avartar">
-          </div>
-          <div class="post-info">
-            <p class="name">{{Posts.author.name}}</p>
-            <span class="time">{{Posts.timeCreated}}</span>
-          </div>
-          <i class="fas fa-ellipsis-h">
+            <a href="/user/Profile">
+              <i class="fa fa-user"></i>
+            </a>
 
-          </i>
-        </div>
+            <a href="/user/SavePosts">
+              <i class="fa fa-bookmark"></i>
+            </a>
 
-        <div class="post-content">
-          <p style="color: royalblue; word-break: break-all;">#{{Posts.title}}</p>
-          <p style=" margin-top: 10px; margin-bottom: 5px; word-break: break-all;">{{Posts.desc}}</p>
-          <img src="/uploads/{{Posts.postImage}}" alt="Posts Image">
-        </div>
-        <div class="post-bottom">
-          <div class="action">
-            <i class="far fa-thumbs-up"></i>
-            <span>Like</span>
+            <a href="/user/Messages">
+              <i class="fab fa-facebook-messenger"></i>
+            </a>
+            <a href="/account/logout">
+              <i class="fas fa-sign-out-alt"></i>
+            </a>
           </div>
-          <div class="action">
-            <i class="far fa-comment"></i>
-            <span>Comment</span>
+        </nav>
+        <div class="scrollbar">
+          <div class="post-top">
+            <div class="dp">
+              <img src="/uploads/{{Posts.author.Avatar}}" alt="Avartar">
+            </div>
+            <div class="post-info">
+              <p class="name">{{Posts.author.name}} <img style="width: 13px; margin-left: 3px;"
+                  src="/assets/images/verify.png" title="Verified"></p>
+              <span class="time">{{Posts.timeCreated}}</span>
+            </div>
+            <i class="fas fa-ellipsis-h">
+            </i>
           </div>
-          <div class="action">
-            <form class="uploadForm" action="/user/SavePosts/{{Posts._id}}" method="POST">
-              <input type="hidden" name="_method" value="PUT">
-              <button style="border: 0; font-size: 18px;background: white;" type="submit" class="fa fa-bookmark">
-                <span style="font-family: auto;"> Save</span></button>
-            </form>
+          <div class="post-content">
+            <p style="color: royalblue; word-break: break-all;">#{{Posts.title}}</p>
+            <p style=" margin-top: 10px; margin-bottom: 5px; word-break: break-all;"><strong>DESC: </strong>
+              {{Posts.desc}}</p>
           </div>
-        </div>
-
-        <div class="pt-5 mt-5">
-          <h3 class="mb-5 font-weight-bold"
-            style="margin-top: 14px;margin-bottom: 14px; margin-left: 5px; font-size: 21px;">0 Comments</h3>
-          <ul class="comment-list">
-            {{#each Comment}}
-            <li class="comment">
-              <div class="vcard bio">
-                <img src="/uploads/{{author.Avatar}}" alt="Avartar">
-              </div>
-              <div class="comment-body">
-                <div class="post-info">
-                  <h3 class="name">{{author.name}}</h3>
-                  <span class="meta">{{author.timeCreated}}</span>
+          <div class="post-bottom">
+            <div class="action">
+              <i class="far fa-thumbs-up"></i>
+              <span>Like</span>
+            </div>
+            <div class="action">
+              <i class="far fa-comment"></i>
+              <span>Comment</span>
+            </div>
+            <div class="action">
+              <form class="uploadForm" action="/user/SavePosts/{{Posts._id}}" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+                <button style="border: 0; font-size: 18px;background: white;" type="submit" class="fa fa-bookmark">
+                  <span style="font-family: auto;"> Save</span></button>
+              </form>
+            </div>
+          </div>
+          <div class="pt-5 mt-5">
+            <h3 class="mb-5 font-weight-bold"
+              style="margin-top: 14px;margin-bottom: 14px; margin-left: 5px; font-size: 21px;">Comment</h3>
+            <ul class="comment-list" id="listComment">
+              {{#each Comment}}
+              <li class="comment">
+                <div class="vcard">
+                  <img src="/uploads/{{author.Avatar}}" alt="Avartar">
                 </div>
-                <p>
-                  {{content}}
-                </p>
-
-                {{!-- <p><a href="#" class="reply">Reply</a></p>
-              </div> --}}
-              {{!-- <ul class="children">
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img src="/uploads/{{User.Avatar}}" alt="Avartar">
+                <div class="comment-body">
+                  <div class="post-info">
+                    <h3 class="name">{{author.name}}</h3>
+                    <span class="meta">{{author.timeCreated}}</span>
                   </div>
-                  <div class="comment-body">
-                    <div class="post-info">
-                      <h3 class="name">{{User.name}}</h3>
-                      <span class="meta">{{User.timeCreated}}</span>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus,
-                      ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum
-                      impedit necessitatibus, nihil?</p>
-                    <p><a href="#" class="reply">Reply</a></p>
-                  </div>
-                </li>
-              </ul> --}}
-            </li>
-            {{/each}}
-          </ul>
+                  <p>
+                    {{content}}
+                  </p>
+              </li>
+              {{/each}}
+            </ul>
+          </div>
         </div>
 
         <div class="post-bottom">
-
           <div class="post-top">
             <div class="dp">
               <img src="/uploads/{{User.Avatar}}" alt="Avartar">
             </div>
 
-            <form class="uploadForm" action="/user/doComment" method="POST">
+            <form class="uploadForm" id="ajaxComment" method="post">
               <div class="row">
                 <div class="col-60">
                   <textarea id="content" name="content" placeholder="Add comment..." required></textarea>
                 </div>
                 <div class="col-40">
-                  <input type="hidden" name="blog_id" value="{{Posts._id}}">
-                  <button id="submit">
+                  <input type="hidden" id="blogId" name="blog_id" value="{{Posts._id}}">
+                  {{!-- <button id="submit">
                     Add Comment
-                  </button>
+                  </button> --}}
+                  <input type="submit" id="submit" value="Add Comment">
                 </div>
               </div>
             </form>
+
           </div>
 
         </div>
       </div>
-
-      <div class="footer-links">
-        <a>
-          <p class="mb-0 text-secondary" style="text-align: center; margin-top: 16px;">
-            Copyright ©
-            <script>
-              document.write(new Date().getFullYear())
-            </script> Anh Tuan.
-          </p>
-        </a>
-      </div>
-
     </div>
-
   </div>
+
+
+
+
 
   <script>
     var data = {};
@@ -215,7 +175,17 @@
       success: function () { },
       error: function () { }
     });
+    //const m = moment();
+    //m.format('lll');
+    //moment().format("YYYY Do MM")
+
   </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/ajax/ajaxComment.js"></script>
+  {{!--
+  <script src="https://unpkg.com/moment"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script> --}}
 
 </body>
 

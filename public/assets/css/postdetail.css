@@ -48,6 +48,7 @@ nav .nav-middle {
   display: flex;
   align-items: flex-end;
   padding-bottom: 5px;
+  /* margin-left: 34px; */
 }
 
 nav .nav-middle a {
@@ -106,11 +107,51 @@ nav .nav-right a > i {
   font-size: 18px;
 }
 
-.container {
-  background: #eee;
+#container {
   display: flex;
+  width: 100%;
 }
 
+.left {
+  width: 66%;
+  
+}
+
+.right {
+  width: 34%;
+
+}
+
+.alert-dismissible .btn-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  padding: 1.25rem 1rem;
+}
+
+.close {
+  position: absolute;
+  z-index: 2;
+  font-size: 20px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+
+.close {
+  background: transparent
+  url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3E%3C/svg%3E")
+  50%/1em auto no-repeat;
+border: 0;
+border-radius: 0.25rem;
+box-sizing: content-box;
+color: #000;
+height: 1em;
+opacity: 0.5;
+padding: 0.25em;
+width: 1em;
+}
 .middle-panel {
   flex: 1;
   display: flex;
@@ -199,12 +240,12 @@ nav .nav-right a > i {
 }
 
 .post {
-  width: 700px;
+  /* width: 700px;
   background: #fff;
   border-radius: 15px;
   padding: 10px;
   margin: 10px;
-  float: left;
+  float: left; */
 }
 
 .post .post-top {
@@ -223,10 +264,12 @@ nav .nav-right a > i {
 .post .post-top .dp > img {
   width: 100%;
   cursor: pointer;
+  object-fit: cover;
+  height: 100%;
 }
 
 .post .post-top .post-info {
-  margin-left: 40px;
+  margin-left: 20px;
   font-weight: bold;
 }
 
@@ -262,13 +305,11 @@ nav .nav-right a > i {
   padding: 10px;
 }
 
-.post .post-content > img {
+.left .post-content > img {
   width: 100%;
-  margin: 5px 0px;
-  height: 500px;
   background-color: black;
   object-fit: contain;
-  border-radius: 8px;
+  height: 750px;
 }
 
 .post .post-bottom {
@@ -319,7 +360,7 @@ nav .nav-right a > i {
 input[type="text"],
 select,
 textarea {
-  width: 100%;
+  width: 459px;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -371,7 +412,7 @@ textarea {
   width: 80px;
   float: left;
 }
-.comment-list li .vcard img {
+.comment .vcard img {
   width: 50px;
   border-radius: 50%;
 }
@@ -402,3 +443,7 @@ textarea {
   color: #fff;
   background: black;
 }
+
+
+
+

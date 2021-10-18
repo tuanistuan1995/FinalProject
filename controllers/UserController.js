@@ -1,12 +1,13 @@
-const AppUser = require("../models/AppUserModel");
-const Friend = require("../models/FriendModel");
-const Posts = require("../models/PostsModel");
-const UserModel = require("../models/UserModel");
-const Messages = require("../models/MessagesModel");
-const Posts_report = require("../models/Posts_reportModel");
-const Comment = require("../models/commentModel");
+const AppUser        = require("../models/AppUserModel");
+const Friend         = require("../models/FriendModel");
+const Posts          = require("../models/PostsModel");
+const UserModel      = require("../models/UserModel");
+const Messages       = require("../models/MessagesModel");
+const Posts_report   = require("../models/Posts_reportModel");
+const Comment        = require("../models/commentModel");
 const SavePostsModel = require("../models/SavePostsModel");
-
+var moment = require('moment');
+const m = moment();
 // Get Home
 // const GetUserHome = (req, res, next) => {
 //   let user = {};
@@ -43,8 +44,9 @@ const GetUserHome = async (req, res, next) => {
   try {
     const User = await UserModel.findOne({ account_id: req.session.userId });
     const UserAcc = await AppUser.findOne({ _id: req.session.userId });
-    const PostsModel = await Posts.find({}).populate("author").sort({timeCreated:-1});
-    // .populate({ path: 'author', select: 'Avatar'})
+    const PostsModel = await Posts.find({})
+      .populate("author")
+      .sort({ timeCreated: -1 });
     return res.render("usersViews/HomePage", {
       Posts: PostsModel,
       User: User,
@@ -123,7 +125,6 @@ const getUserProfile = async (req, res, next) => {
   }
 };
 
-
 // Get Messages
 const getMessages = (req, res, next) => {
   return res.render("./usersViews/Messages");
@@ -184,7 +185,9 @@ const getPostDetail = async (req, res, next) => {
     const User = await UserModel.findOne({ account_id: req.session.userId });
     // const UserAcc = await AppUser.findOne({ _id: req.session.userId });
     const PostsModel = await Posts.findOne({ _id: _id }).populate("author");
-    const Comments = await Comment.find({ posts:PostsModel }).populate("author");
+    const Comments = await Comment.find({ posts: PostsModel }).populate(
+      "author"
+    );
     return res.render("usersViews/Post_Detail", {
       Posts: PostsModel,
       // UserAcc: UserAcc,
@@ -211,8 +214,8 @@ const getChangePassword = (req, res, next) => {
           return res.render("./usersViews/ChangePassword", {
             UserAcc: UserAcc,
             User: User,
-            err : msg,
-            errs : msgs,
+            err: msg,
+            errs: msgs,
           });
         });
     });
@@ -263,9 +266,9 @@ const doComment = async (req, res, next) => {
     const com = {
       author: User._id,
       content: content,
-      posts : PostsModel._id,
-    }
-    const newComment = await Comment.create(com)
+      posts: PostsModel._id,
+    };
+    const newComment = await Comment.create(com);
     const saveCom = await newComment.save();
     // const newComment = await new Comment({
     //   author: User._id,
@@ -273,29 +276,35 @@ const doComment = async (req, res, next) => {
     // });
     await PostsModel.Comment_id.push(saveCom);
     await PostsModel.save();
-    res.redirect(`/user/Post_Detail/${PostsModel._id}`);
+    res.json(saveCom)
   } catch (error) {
     console.log(error);
   }
 };
 
+
+
 // Get Saving Posts
 const getSavePosts = async (req, res, next) => {
-  const User = await UserModel.findOne({account_id: req.session.userId})
-  const allSavePosts = await SavePostsModel.find({user_id: User._id}).populate("posts_id");
+  const User = await UserModel.findOne({ account_id: req.session.userId });
+  const allSavePosts = await SavePostsModel.find({
+    user_id: User._id,
+  }).populate("posts_id");
   return res.render("usersViews/SavePosts", {
-    SavePosts : allSavePosts,
+    SavePosts: allSavePosts,
   });
-
 };
 
-const unSavePosts = async (req, res, next) =>{
+const unSavePosts = async (req, res, next) => {
   const { _id } = req.body;
   try {
-  const aaa = await SavePostsModel.findOneAndRemove({_id:_id});
-  const abc = await UserModel.findOneAndUpdate({posts_id: aaa._id},{$pull: {posts_id: aaa._id}});
-  
-  return res.redirect("/user/getSavePosts")
+    const aaa = await SavePostsModel.findOneAndRemove({ _id: _id });
+    const abc = await UserModel.findOneAndUpdate(
+      { posts_id: aaa._id },
+      { $pull: { posts_id: aaa._id } }
+    );
+
+    return res.redirect("/user/getSavePosts");
   } catch (error) {
     console.log(error);
   }
@@ -317,7 +326,6 @@ const SavePosts = async (req, res, next) => {
     console.log(err);
   }
 };
-
 
 module.exports = {
   getChangePassword,

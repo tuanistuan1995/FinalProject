@@ -3,12 +3,12 @@ var mongoose = require("mongoose");
 const UserSchema = new mongoose.Schema({
     Avatar: {
         type: String,
+        default: "/assets/images/profile.png"
     },
     name: {
         type: String,
         minlength: 4,
         maxlength: 10,
-        unique: true,
     },
     Phone: {
         type: String,
@@ -61,10 +61,11 @@ const UserSchema = new mongoose.Schema({
         ref: "SavePosts",
         },
     ],
-    // list_friend: {
+    // list_friend: [{
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "Friend",
-    // },
+    // }],
+    
     // messages: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "Messages",
