@@ -1,4 +1,3 @@
-
 const Posts          = require("../../models/PostsModel");
 const UserModel      = require("../../models/UserModel");
 

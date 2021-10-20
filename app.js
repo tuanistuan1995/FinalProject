@@ -7,6 +7,8 @@ var methodOverride = require("method-override");
 var session = require("express-session");
 var moment = require('moment'); 
 var exphbs = require('express-handlebars');
+const Handlebars = require('handlebars');
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 
 
 var indexRouter = require('./routes/index');
@@ -57,6 +59,29 @@ app.use(
 //     }
 //   }
 // })
+
+app.engine(
+  'hbs',
+    exphbs({
+      defaultLayout: 'layout',
+      handlebars: allowInsecurePrototypeAccess(Handlebars),
+      extname: '.hbs',
+      helpers: require('handlebars-helpers')(),
+  }),
+);
+
+app.use(function (req, res, next) {
+  res.locals.session = req.session;
+  next();
+});
+
+Handlebars.registerHelper('equals', function (a, b, options) {
+  if (a == b) {
+      return options.fn(this);
+  } else {
+      return options.inverse(this);
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

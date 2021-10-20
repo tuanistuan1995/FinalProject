@@ -1252,7 +1252,7 @@
               labels: {
                 placeholder: "Search...",
                 perPage: "{select}",
-                noRows: "There isn't any User Account",
+                noRows: "No value found, please try again!!",
                 info: "Showing {start} to {end} of {rows} entries",
               },
               layout: { top: "{select}{search}", bottom: "{info}{pager}" },

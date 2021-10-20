@@ -11,9 +11,10 @@ router.get("/login", (req, res, next) => {
   const { msg } = req.query;
   res.render("login", { err: msg, title: "Login to your Account" });
 });
-
-// Get login / logout request
 router.post("/login", Login);
+
+
+
 router.get("/logout", Logout);
 // router.get("/signup", Signup)
 router.post("/register", Register);

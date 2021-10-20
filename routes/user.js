@@ -10,11 +10,14 @@ var {
     getPostDetail,
     addPost,
     getPost,
+    deletetPost,
     GetUserHome,
     getUserProfile,
+    getOtherProfile,
     getSavePosts,
     SavePosts,
     unSavePosts,
+    checkProfile,
     getMessages,
     doComment,
 } = require("../controllers/UserController");
@@ -35,6 +38,8 @@ router.get("/Messages", isUser, getMessages);
 
 // Get user Profile
 router.get("/Profile", isUser, getUserProfile);
+router.get("/OtherProfile/:id", isUser, getOtherProfile);
+
 
 // update password   
 router.get("/ChangePassword/:id", isUser, getChangePassword);
@@ -50,6 +55,7 @@ router.get("/Post_Detail/:id", isUser, getPostDetail);
 // Add new Posts
 router.get("/getPost/:id", isUser, getPost);
 router.post("/addPost", multerInstance , isUser, addPost);
+router.delete("/deletePost", isUser, deletetPost);
 
 //Do Comment
 router.post("/doComment", isUser, doComment);

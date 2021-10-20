@@ -107,6 +107,16 @@ nav .nav-right a > i {
   font-size: 18px;
 }
 
+
+#right{
+  width: 70%;
+}
+
+#left{
+  width: 30%;
+}
+
+
 #container {
   display: flex;
   width: 100%;
@@ -239,14 +249,14 @@ width: 1em;
   left: 10px;
 }
 
-.post {
-  /* width: 700px;
+/*.post {
+   width: 700px;
   background: #fff;
   border-radius: 15px;
   padding: 10px;
   margin: 10px;
-  float: left; */
-}
+  float: left; 
+}*/
 
 .post .post-top {
   display: flex;
@@ -259,6 +269,13 @@ width: 1em;
   height: 40px;
   border-radius: 50%;
   overflow: hidden;
+}
+
+.post .post-top .dp a > img {
+  width: 100%;
+  cursor: pointer;
+  object-fit: cover;
+  height: 100%;
 }
 
 .post .post-top .dp > img {
@@ -309,7 +326,7 @@ width: 1em;
   width: 100%;
   background-color: black;
   object-fit: contain;
-  height: 750px;
+  height: 701px;
 }
 
 .post .post-bottom {

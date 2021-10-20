@@ -7,12 +7,15 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.5",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
     "debug": "^2.6.9",
     "express": "^4.16.4",
     "express-handlebars": "^5.3.4",
     "express-session": "^1.17.2",
+    "handlebars": "^4.7.7",
+    "handlebars-helpers": "^0.10.0",
     "hbs": "^4.0.6",
     "http-errors": "^1.6.3",
     "method-override": "^3.0.0",

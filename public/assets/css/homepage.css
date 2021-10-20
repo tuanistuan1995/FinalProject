@@ -292,7 +292,7 @@ nav .nav-right a > i {
   overflow: hidden;
 }
 
-.post .post-top .dp  > img {
+.post .post-top .dp a > img {
   width: 100%;
   cursor: pointer;
 }
@@ -304,7 +304,7 @@ nav .nav-right a > i {
 
 .post .post-top .post-info .name {
   cursor: pointer;
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .post .post-top .post-info .time {
@@ -481,6 +481,11 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: #45a049;
+}
+
+.follow {
+  padding: 12px 12px 0 0;
+  display: inline-block;
 }
 
 .container {

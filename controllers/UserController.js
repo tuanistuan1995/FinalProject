@@ -6,8 +6,6 @@ const Messages       = require("../models/MessagesModel");
 const Posts_report   = require("../models/Posts_reportModel");
 const Comment        = require("../models/commentModel");
 const SavePostsModel = require("../models/SavePostsModel");
-var moment = require('moment');
-const m = moment();
 // Get Home
 // const GetUserHome = (req, res, next) => {
 //   let user = {};
@@ -47,16 +45,18 @@ const GetUserHome = async (req, res, next) => {
     const PostsModel = await Posts.find({})
       .populate("author")
       .sort({ timeCreated: -1 });
+    const aaa = await Posts.findOne({author: User._id})
     return res.render("usersViews/HomePage", {
       Posts: PostsModel,
       User: User,
       UserAcc: UserAcc,
+      aaa: aaa,
     });
   } catch (error) {
     console.log(error);
   }
-  //return res.render("usersViews/HomePage");
 };
+
 
 // Get Post
 const addPost = async (req, res, next) => {
@@ -96,6 +96,20 @@ const getPost = async (req, res, next) => {
     console.log(error);
   }
 };
+
+const deletetPost= async (req, res, next) => {
+  const { _id } = req.body;
+  try {
+    const dele = await Posts.findOneAndRemove({_id:_id});
+    const abc = await SavePostsModel.findOneAndRemove({posts_id: dele._id});
+    
+    const msgs = "Delete Post Success!";
+    return res.redirect(`/user/getPost/${_id}?msgs=${msgs}`)
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // exports.getArticles = async (req, res, next) => {
 //   //const _id = req.query.id;
 //   try {
@@ -119,6 +133,19 @@ const getUserProfile = async (req, res, next) => {
     return res.render("usersViews/Profile", {
       UserAcc: UserAcc,
       User: User,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getOtherProfile = async (req, res, next) => {
+  const User = await UserModel.findOne({ _id: req.params.id});
+  const PostsModel = await Posts.find({ author: User._id });
+  try {
+    return res.render("usersViews/otherProfile", {
+      User: User,
+      Posts: PostsModel,
     });
   } catch (error) {
     console.log(error);
@@ -179,25 +206,19 @@ const updateInfo = async (req, res, next) => {
 
 // Get Post Detail
 const getPostDetail = async (req, res, next) => {
-  // const _id = req.params._id;
   const _id = req.params.id;
   try {
     const User = await UserModel.findOne({ account_id: req.session.userId });
-    // const UserAcc = await AppUser.findOne({ _id: req.session.userId });
     const PostsModel = await Posts.findOne({ _id: _id }).populate("author");
-    const Comments = await Comment.find({ posts: PostsModel }).populate(
-      "author"
-    );
+    const Comments = await Comment.find({ posts: PostsModel }).populate("author");
     return res.render("usersViews/Post_Detail", {
-      Posts: PostsModel,
-      // UserAcc: UserAcc,
+      Posts: PostsModel,    
       User: User,
       Comment: Comments,
     });
   } catch (error) {
     console.log(error);
   }
-  // return res.render("./usersViews/Post_Detail");
 };
 
 // Get Change Password
@@ -246,7 +267,7 @@ const ChangePassword = async (req, res, next) => {
             return res.redirect(`user/ChangePassword`);
           } else {
             console.log(data);
-            const msgs = "Succsessfully!";
+            const msgs = "Successfully!";
             return res.redirect(
               `/user/ChangePassword/${UserAcc._id}?msgs=${msgs}`
             );
@@ -334,8 +355,10 @@ module.exports = {
   getupdateInfo,
   addPost,
   getPost,
+  deletetPost,
   GetUserHome,
   getUserProfile,
+  getOtherProfile,
   getSavePosts,
   SavePosts,
   unSavePosts,

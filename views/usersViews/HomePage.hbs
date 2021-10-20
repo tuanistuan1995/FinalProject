@@ -241,15 +241,18 @@
       {{!-- POSTS --}}
       {{#each Posts}}
       <div class="post">
-
         <div class="post-top">
           <div class="dp">
-            <img src="/uploads/{{author.Avatar}}" alt="Avartar">
+            <a>
+              <img src="/uploads/{{author.Avatar}}" alt="Avartar">
+            </a>
           </div>
           <div class="post-info">
-            <p class="name">{{author.name}}<img style="width: 13px; margin-left: 3px;" src="/assets/images/verify.png"
-                title="Verified">
-            </p>
+            <a style="text-decoration: none; color:black;">
+              <p class="name">{{author.name}}<img style="width: 13px; margin-left: 3px;" src="/assets/images/verify.png"
+                  title="Verified">
+              </p>
+            </a>
             <span class="time">{{timeCreated}}</span>
           </div>
           <i class="fas fa-ellipsis-h"></i>

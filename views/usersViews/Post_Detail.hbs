@@ -16,7 +16,7 @@
   <style type="text/css">
     .scrollbar {
       margin-left: 15px;
-      height: 525px;
+      height: 475px;
       overflow-x: hidden;
       overflow-y: auto;
       margin-bottom: 15px;
@@ -76,9 +76,19 @@
           </div>
         </nav>
         <div class="scrollbar">
+                       <input type="text" value={{Posts.author.account_id}}>
+              <input type="text" value={{session.userId}}>
           <div class="post-top">
             <div class="dp">
-              <img src="/uploads/{{Posts.author.Avatar}}" alt="Avartar">
+              {{#equals Posts.author.account_id session.userId}}
+              <a href="/user/Profile">
+                <img src="/uploads/{{Posts.author.Avatar}}" alt="Avartar">
+              </a>
+              {{else}}
+              <a href="/user/OtherProfile/{{Posts.author._id}}">
+                <img src="/uploads/{{Posts.author.Avatar}}" alt="Avartar">
+              </a>
+              {{/equals}}
             </div>
             <div class="post-info">
               <p class="name">{{Posts.author.name}} <img style="width: 13px; margin-left: 3px;"
@@ -112,7 +122,8 @@
           </div>
           <div class="pt-5 mt-5">
             <h3 class="mb-5 font-weight-bold"
-              style="margin-top: 14px;margin-bottom: 14px; margin-left: 5px; font-size: 21px;">Comment</h3>
+              style="margin-top: 14px;margin-bottom: 14px; margin-left: 5px; font-size: 21px;">{{Posts.__v}} Comment
+            </h3>
             <ul class="comment-list" id="listComment">
               {{#each Comment}}
               <li class="comment">
@@ -146,9 +157,6 @@
                 </div>
                 <div class="col-40">
                   <input type="hidden" id="blogId" name="blog_id" value="{{Posts._id}}">
-                  {{!-- <button id="submit">
-                    Add Comment
-                  </button> --}}
                   <input type="submit" id="submit" value="Add Comment">
                 </div>
               </div>
@@ -163,26 +171,17 @@
 
 
 
-
-
-  <script>
-    var data = {};
-    data.fielter_data1 = document.getElementById('content');
-    $.ajax({
-      type="POST",
-      url: "/user/doComment",
-      data: data,
-      success: function () { },
-      error: function () { }
-    });
-    //const m = moment();
-    //m.format('lll');
-    //moment().format("YYYY Do MM")
-
-  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="/ajax/ajaxComment.js"></script>
+
+
+  {{!--
+  <script>
+    //const m = moment();
+    //m.format('lll');
+    //moment().format("YYYY Do MM")
+  </script> --}}
   {{!--
   <script src="https://unpkg.com/moment"></script>
   <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script> --}}

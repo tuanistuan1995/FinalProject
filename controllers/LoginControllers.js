@@ -34,6 +34,7 @@ const Register = async (req, res, next) => {
         role: "user",
       });
       await newUserAcc.save();
+      
       const UserAcc = await AppUser.findOne({ username: usr });
       const newUser = new UserModel({
         account_id: UserAcc._id,

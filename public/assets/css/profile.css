@@ -149,19 +149,28 @@ nav .nav-right a > i {
 .post-profile {
   display: flex;
   align-items: center;
+  margin-left: 50px;
+  margin-top: 7px;
+}
 }
 .post-profile h3 {
   font-size: 12px;
   font-weight: 600px;
   margin-left: 5px;
 }
+
+.post-profile i {
+  font-size: 20px;
+}
+
 .likes {
   display: flex;
   align-items: center;
+  margin-right: 50px;
+  margin-top: 7px;
 }
 .likes i {
   font-size: 20px;
-  margin-left: 10px;
 }
 .likes span {
   font-size: 14px;
