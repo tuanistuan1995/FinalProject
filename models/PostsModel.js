@@ -1,4 +1,6 @@
 var mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
 var PostsSchema = mongoose.Schema({
     title: {
         type: String,
@@ -15,29 +17,29 @@ var PostsSchema = mongoose.Schema({
         type: Date,
         default: () => Date.now(),
     },
-    Like: [
-        {
-            author: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User",
-            },
-            type: Number,
-            count: true,
-            default: 0,
-        },
-    ],
     Comment_id: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Comment",
         },
-        
     ],
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
-    posts_report: {
+    likeBy: [
+        {
+            user_id: {
+                type: Schema.Types.ObjectId,
+                ref: "User",
+            },
+            total_Likes: {
+                type: Number,
+                default: 0,
+            },
+        }
+    ],
+    report_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Posts_report",
     },

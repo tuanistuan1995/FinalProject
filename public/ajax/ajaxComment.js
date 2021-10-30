@@ -3,7 +3,7 @@ $(document).ready(() =>{
         e.preventDefault();
 
         var formData = $('#ajaxComment').serializeArray();
-        console.log(formData)
+        // console.log(formData)
         var data = {};
 
         $.each(formData, function (i, v) {

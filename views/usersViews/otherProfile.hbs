@@ -62,9 +62,30 @@
             <div class="row" style="margin-left: 250px;">
                 <label class="follow"><strong>{{User.name}}</strong>
                     <img style="width: 17px;" src="/assets/images/verify.png" title="Verified">
-                    <button style="margin-left: 30px;font-size: 17px;width: 100px; height: 28px;">
-                        <strong>Follow</strong>
-                    </button>
+                    
+                    {{#equals demo.FollowingExists.account_id session.userId}}
+                    <form action="/user/unfollowing" method="POST">
+                        <input type="hidden" name="_id" value="{{Following._id}}">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" style="margin-top: 15px;font-size: 17px;width: 100px; height: 28px;">
+                            <strong>unFollow</strong>
+                        </button>
+                    </form>
+                    {{else}}
+                    <form action="/user/following/{{User._id}}" method="POST">
+                        <input type="hidden" name="_method" value="PUT">
+                        <button type="submit" style="margin-top: 15px;font-size: 17px;width: 100px; height: 28px;">
+                            <strong>Follow</strong>
+                        </button>
+                    </form>
+                    {{/equals}}
+                    {{!-- <form action="/user/following/{{User._id}}" method="POST">
+                        <input type="hidden" name="_method" value="PUT">
+                        <button type="submit" style="margin-left: 30px;font-size: 17px;width: 100px; height: 28px;">
+                            <strong>Follow</strong>
+                        </button>
+                    </form> --}}
+
                     <br>
                     <br>
                     <div>

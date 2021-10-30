@@ -3,7 +3,7 @@ const UserModel      = require("../../models/UserModel");
 
 
 exports.getBlogData = async (req, res, next) => {
-  const blogId = req.params.id;
+    const blogId = req.params.id;
 
     const User = await UserModel.findOne({ account_id: req.session.userId });
     const PostsModel = await Posts.findOne({ _id: blogId }).populate("author").populate({
@@ -11,8 +11,10 @@ exports.getBlogData = async (req, res, next) => {
         populate: {
             path: 'author'
         }
-            
     });
     res.json(PostsModel)
 
+
 };
+
+

@@ -94,7 +94,7 @@
         </a>
         <div class="post-info">
           <div class="post-profile">
-            <form action="/user/deletePost" method="POST"> 
+            <form action="/user/deletePost" method="POST" enctype="application/x-www-form-urlencoded"> 
             <input type="hidden" name="_id" value="{{_id}}">
             <input type="hidden" name="_method" value="DELETE">
               <button style="border: 0;color: #95cab1;">

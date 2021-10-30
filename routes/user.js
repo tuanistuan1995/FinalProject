@@ -12,14 +12,19 @@ var {
     getPost,
     deletetPost,
     GetUserHome,
+    Following,
     getUserProfile,
     getOtherProfile,
     getSavePosts,
     SavePosts,
     unSavePosts,
-    checkProfile,
+    likePost,
+    unlikePost,
     getMessages,
     doComment,
+    unFollow,
+    doSearch,
+    PostReport,
 } = require("../controllers/UserController");
 var { multerInstance } = require("../middleware/upload");
 
@@ -31,7 +36,8 @@ router.get("/SavePosts", isUser, getSavePosts);
 router.put("/SavePosts/:id", isUser, SavePosts);
 router.delete("/unSavePosts", isUser, unSavePosts);
 
-
+// Report Post
+// router.put("/PostReport/:id", isUser, PostReport);
 
 //get Message
 router.get("/Messages", isUser, getMessages);
@@ -59,5 +65,14 @@ router.delete("/deletePost", isUser, deletetPost);
 
 //Do Comment
 router.post("/doComment", isUser, doComment);
+
+router.put("/likePost", isUser, likePost);
+router.put("/unlikePost", isUser, unlikePost);
+
+router.put("/following/:id", isUser, Following);
+router.delete("/unfollowing", isUser, unFollow);
+
+router.get("/doSearch", isUser, doSearch);
+
 
 module.exports = router;

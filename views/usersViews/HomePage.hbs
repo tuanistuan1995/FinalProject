@@ -6,13 +6,9 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  {{!
-  <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon"> }}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  {{!--
-  <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script> --}}
 </head>
 
 <body>
@@ -21,7 +17,9 @@
       <a href="/user/HomePage">
         <img style="height: 50px;" src="/assets/images/logo11.png" alt="Logo" />
       </a>
-      <input type="text" name="search" placeholder="Search Post ..." />
+      <form action="/user/doSearch" method="GET">
+        <input id="se" type="text" name="search" placeholder="Search Post ..." />
+      </form>
     </div>
 
     <div class="nav-middle">
@@ -196,7 +194,8 @@
             .catch(error => { console.error(error); });
         </script>
       </div> --}}
-
+      {{#if search}}
+      {{else}}
       <div class="post create">
         <h2 style="text-align: center; margin: 10px;">Upload new Post</h2>
 
@@ -236,6 +235,7 @@
         </form>
 
       </div>
+      {{/if}}
 
 
       {{!-- POSTS --}}
@@ -243,9 +243,15 @@
       <div class="post">
         <div class="post-top">
           <div class="dp">
-            <a>
+            {{#equals author.account_id ../session.userId}}
+            <a href="/user/Profile">
               <img src="/uploads/{{author.Avatar}}" alt="Avartar">
             </a>
+            {{else}}
+            <a href="/user/OtherProfile/{{author._id}}">
+              <img src="/uploads/{{author.Avatar}}" alt="Avartar">
+            </a>
+            {{/equals}}
           </div>
           <div class="post-info">
             <a style="text-decoration: none; color:black;">
@@ -265,11 +271,31 @@
             <img src="/uploads/{{postImage}}" alt="Posts Image">
           </a>
         </div>
-        <div class="post-bottom">
-          <div class="action">
-            <i class="far fa-thumbs-up"></i>
-            <span>Like</span>
-          </div>
+        <div class="post-bottom" style="margin-right: 12px;">
+          {{!-- <form action="/user/likePost" method="POST">
+            <input type="hidden" id="_method" value="PUT">
+            <input type="hidden" id="blogId" name="_id" value="{{_id}}">
+            <button class=".btn-outline-danger" id="{{_id}}" type="submit"
+              style="font-size: 18px; border: 0;background: white;">
+              <img style="width: 20px;" src="/assets/images/like.png"> Like</button>
+            <strong>{{Like}}</strong>
+          </form> --}}
+          <form action="/user/likePost" method="POST">
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" id="blogId" name="_id" value="{{_id}}">
+            <button class=".btn-outline-danger" id="{{_id}}" type="submit"
+              style="font-size: 18px; border: 0;background: white;">
+              <img style="width: 20px;" src="/assets/images/like.png"> Like</button>
+            <strong>{{Like}}</strong>
+          </form>
+          {{!-- <div class="action" id="unlike">
+            <form id="ajaxunLike" method="POST">
+              <input type="hidden" id="blogId" name="_id" value="{{_id}}">
+              <button type="submit" style="font-size: 18px; border: 0;background: white;">
+                <img style="width: 20px;" src="/assets/images/like.png"> Like</button>
+              <strong>{{Like}}</strong>
+            </form>
+          </div> --}}
           <div class="action">
             <a href="/user/Post_Detail/{{_id}}">
               <i class="far fa-comment"></i>
@@ -277,11 +303,13 @@
             </a>
           </div>
           <div class="action">
-            {{!-- <i class="fa fa-bookmark"></i> --}}
-            <form action="/user/SavePosts/{{_id}}" method="POST">
-              <input type="hidden" name="_method" value="PUT">
-              <button style="border: 0; font-size: 18px;background: white;" type="submit" class="fa fa-bookmark">
-                <span style="font-family: auto;"> Save</span></button>
+            {{!-- <i class="fas fa-share-square"></i>
+            <span>Report</span> --}}
+            <form action="#" method="">
+              {{!-- <input type="hidden" name="_method" value="PUT"> --}}
+              <button style="border: 0; font-size: 18px;background: white;" type="submit" class="fas fa-share-square">
+                Report
+              </button>
             </form>
           </div>
         </div>
@@ -309,19 +337,16 @@
         </a>
       </div> }}
       <div class="friends-section">
-        <h4>Following</h4>
-        {{!-- <a class="friend" href="#">
+        <h4 style="font-size: 26px;">Following</h4>
+        {{#each allFollowing}}
+        <a class="friend" href="/user/OtherProfile/{{user_id._id}}">
           <div class="dp">
-            <img src="/assets/images/tuan.jpg" alt="" />
+            <img src="/uploads/{{user_id.Avatar}}" alt="Posts Image">
           </div>
-          <p class="name">Friend 1</p>
+          <p class="name"><strong>{{user_id.name}}</strong></p>
         </a>
-        <a class="friend" href="#">
-          <div class="dp">
-            <img src="/assets/images/tuan.jpg" alt="" />
-          </div>
-          <p class="name">Friend 4</p>
-        </a> --}}
+
+        {{/each}}
 
       </div>
     </div>
@@ -335,6 +360,11 @@
       }
     };
   </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/ajax/ajaxLike.js"></script>
+  <script src="/ajax/ajaxUnlike.js"></script>
+
 
 </body>
 

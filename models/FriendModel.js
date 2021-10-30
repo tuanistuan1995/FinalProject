@@ -1,19 +1,15 @@
 var mongoose = require("mongoose");
 var FriendSchema = mongoose.Schema({
-    Avatar: {
-        type: String,
-    },
-    name: {
-        type: String,
-    },
-    status: {
-        type: Boolean,
-        default: false,
-    },
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
+    
+    user_session: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    },
+
     timeCreated: {
         type: Date,
         default: () => Date.now(),

@@ -1,28 +1,12 @@
 var mongoose = require('mongoose');
-var Posts_reportSchema = mongoose.Schema({
-    name: {
-        type: String,
-    },
-    Avatar: {
-        type: String,
-    },
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-    },
+const Posts_reportSchema = new mongoose.Schema({
     posts_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Posts",
     },
-    status: {
-        type: Boolean,
-        default: false,
-    },
-    timeCreated: {
-        type: Date,
-        default: () => Date.now(),
-    },
-});
+},
+    { timestamps: true }
+);
 
 const Posts_report= mongoose.model('Posts_report', Posts_reportSchema);
 

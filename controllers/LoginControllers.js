@@ -56,7 +56,7 @@ const Login = (req, res, next) => {
       return res.redirect("/account/login");
     } else if (!user) {
       // res.status(401);
-      const msg = "User Not Found !!!";
+      const msg = "The username does not exist or has been locked !!! You can click Sign up to register a new account. ";
       return res.redirect(`/account/login?msg=${msg}`);
     } else {
       bcrypt.compare(pwd, user.password, (err, same) => {

@@ -33,7 +33,9 @@ nav .nav-left > img {
     height: auto;
 } */
 
-nav .nav-left > input {
+
+
+nav .nav-left #se {
   height: 40px;
   padding: 5px 10px;
   border: none;
