@@ -35,9 +35,9 @@
         <i class="fa fa-bookmark"></i>
       </a>
 
-      <a href="/user/Messages" title="Message">
+      {{!-- <a href="/user/Messages" title="Message">
         <i class="fab fa-facebook-messenger"></i>
-      </a>
+      </a> --}}
     </div>
 
     <div class="nav-right">
@@ -159,6 +159,12 @@
     </div>
 
     <div class="middle-panel">
+      {{#if err}}
+      <div id="alert-suc" role="alert" class="alert alert-success alert-dismissible">
+        {{err}}
+        <button style="margin-right: 427px;margin-top: 3px;" type="button" class="close" data-dismiss="alert"></button>
+      </div>
+      {{/if}}
 
       {{!-- <div class="post create">
         <div class="post-top">
@@ -227,13 +233,7 @@
           </div>
 
           <button id="submit" type="submit">Post</button>
-          {{#if err}}
-          <div class="alert-warning">
-            {{err}}
-          </div>
-          {{/if}}
         </form>
-
       </div>
       {{/if}}
 
@@ -272,45 +272,23 @@
           </a>
         </div>
         <div class="post-bottom" style="margin-right: 12px;">
-          {{!-- <form action="/user/likePost" method="POST">
-            <input type="hidden" id="_method" value="PUT">
-            <input type="hidden" id="blogId" name="_id" value="{{_id}}">
-            <button class=".btn-outline-danger" id="{{_id}}" type="submit"
-              style="font-size: 18px; border: 0;background: white;">
-              <img style="width: 20px;" src="/assets/images/like.png"> Like</button>
-            <strong>{{Like}}</strong>
-          </form> --}}
-          <form action="/user/likePost" method="POST">
-            <input type="hidden" name="_method" value="PUT">
-            <input type="hidden" id="blogId" name="_id" value="{{_id}}">
-            <button class=".btn-outline-danger" id="{{_id}}" type="submit"
-              style="font-size: 18px; border: 0;background: white;">
-              <img style="width: 20px;" src="/assets/images/like.png"> Like</button>
-            <strong>{{Like}}</strong>
-          </form>
-          {{!-- <div class="action" id="unlike">
-            <form id="ajaxunLike" method="POST">
-              <input type="hidden" id="blogId" name="_id" value="{{_id}}">
-              <button type="submit" style="font-size: 18px; border: 0;background: white;">
-                <img style="width: 20px;" src="/assets/images/like.png"> Like</button>
-              <strong>{{Like}}</strong>
-            </form>
-          </div> --}}
-          <div class="action">
-            <a href="/user/Post_Detail/{{_id}}">
-              <i class="far fa-comment"></i>
-              <span>Comment</span>
-            </a>
-          </div>
-          <div class="action">
-            {{!-- <i class="fas fa-share-square"></i>
-            <span>Report</span> --}}
-            <form action="#" method="">
-              {{!-- <input type="hidden" name="_method" value="PUT"> --}}
-              <button style="border: 0; font-size: 18px;background: white;" type="submit" class="fas fa-share-square">
-                Report
-              </button>
-            </form>
+
+
+          <div style="width: 100%;text-align: center;">
+            {{!-- <div class="action" id="unlike">
+              <form id="ajaxunLike" method="POST">
+                <input type="hidden" id="blogId" name="_id" value="{{_id}}">
+                <button type="submit" style="font-size: 18px; border: 0;background: white;">
+                  <img style="width: 20px;" src="/assets/images/like.png"> Like</button>
+                <strong>{{Like}}</strong>
+              </form>
+            </div> --}}
+            <div class="action">
+              <a href="/user/Post_Detail/{{_id}}">
+                <i class="fas fa-eye"></i>
+                <span>View Detail</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -364,6 +342,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="/ajax/ajaxLike.js"></script>
   <script src="/ajax/ajaxUnlike.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
 </body>

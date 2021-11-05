@@ -11,6 +11,7 @@
     integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -22,7 +23,7 @@
       <input type="text" name="search" placeholder="Search Post ...">
     </div>
 
-    <div class="nav-middle">
+     <div class="nav-middle">
       <a href="/user/HomePage" title="Home">
         <i class="fa fa-home"></i>
       </a>
@@ -34,10 +35,6 @@
       <a href="/user/SavePosts" title="Saving">
         <i class="fa fa-bookmark"></i>
       </a>
-
-      {{!-- <a href="/user/Messages" title="Message">
-        <i class="fab fa-facebook-messenger"></i>
-      </a> --}}
     </div>
 
     <div class="nav-right">
@@ -52,20 +49,22 @@
   </nav>
 
   <div class="profile-container">
-    <div class="profile-details">
+        <div class="profile-details">
       <div class="pd-row">
-        <img style="height: 120px; width: 120px; margin-right: 15px; object-fit: cover;" src="/uploads/{{User.Avatar}}" alt="Avartar">
+        <img style="height: 120px; width: 120px; margin-right: 15px; object-fit: cover;" src="/uploads/{{User.Avatar}}"
+          alt="Avartar">
         <div>
-          <h3>{{User.name}}
-          <img style="width: 17px;" src="/assets/images/verify.png" title="Verified"></h3>
+          <h3>{{User.name}}<img style="width: 17px;margin-left: 7px;" src="/assets/images/verify.png" title="Verified">
+          </h3>
           <p>100 Friends - 1000 Follower</p>
         </div>
         <img src="/assets/images/curved0.jpg" class="cover-img">
       </div>
     </div>
 
+
     <div class="nav-content">
-      <a class="active">
+      <a href="/user/Profile">
         <h3>Infomation</h3>
       </a>
       <a href="/user/getPost/{{UserAcc._id}}">
@@ -79,38 +78,48 @@
       </a>
     </div>
 
-
+    <!-- Main -->
     <div class="mess-container">
-      <div class="mess-details" style="background-color: #f0f1f3;">
-        <h1 style="text-align: center; margin: 10px;">User Infomation</h1>
-
-        <div class="row" style="text-align: center;font-size: 22px;">
-          <img style="height: 120px; width: 120px; object-fit: cover;" src="/uploads/{{User.Avatar}}" alt="Avartar">
+      <div class="mess-details">
+        <h1 style="text-align: center; margin: 10px;">Update Post</h1>
+        <form class="uploadForm" action="/user/UpdatePost" method="POST" enctype="multipart/form-data">
           <div class="row">
-            <label for="name">Full name: <strong>{{User.name}}</strong> 
-            <img style="width: 17px;" src="/assets/images/verify.png" title="Verified"></label>
+            <div class="col-35">
+              <label> <img style="height: 150px; width: 150px; margin-left: 40px; object-fit: cover;" src="/uploads/{{Posts.postImage}}"
+                  alt="postImage" id="output">
+              </label>
+            </div>
+            <div class="col-65" style="margin-top: 66px;">
+              <input name="image" id="image" type="file" onchange="loadFile(event)">
+            </div>
           </div>
           <div class="row">
-            <label for="Phone">Phone Number: <strong>{{User.Phone}}</strong></label>
+            <div class="col-35">
+              <label for="name">Title: <strong>{{Posts.title}}</strong> </label>
+            </div>
+            <div class="col-65">
+              <input type="text" id="title" name="title" placeholder="Your Title..." >
+            </div>
           </div>
           <div class="row">
-            <label for="Address">Address: <strong>{{User.Address}}</strong></label>
+            <div class="col-35">
+              <label for="Phone">Description: <strong>{{Posts.desc}}</strong></label>
+            </div>
+            <div class="col-65">
+              <input type="text" value="" id="desc" name="desc"
+                placeholder="New Description">
+            </div>
           </div>
-          <div class="row">
-            <label for="Age">Age: <strong>{{User.Age}}</strong></label>
-          </div>
-          <div class="row">
-            <label for="email">Email: <strong>{{User.email}}</strong></label>
-          </div>
-          <div class="row">
-            <label for='gender'>Gender: <strong>{{User.gender}}</strong></label>
-          </div>
-        </div>
+          <input type="hidden" name="_id" value="{{Posts._id}}">
+          <button id="submit" value="" type="submit">Submit</button>
+          <br>
+        </form>
       </div>
     </div>
+
     <div class="footer-links">
       <a>
-        <p class="mb-0 text-secondary" style="text-align: center; margin-top:10px;">
+        <p class="mb-0 text-secondary" style="text-align: center; margin-top: 16px;">
           Copyright ©
           <script>
             document.write(new Date().getFullYear())
@@ -119,6 +128,16 @@
       </a>
     </div>
   </div>
+
 </body>
+<script>
+  var loadFile = function (event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function () {
+      URL.revokeObjectURL(output.src) 
+    }
+  };
+</script>
 
 </html>

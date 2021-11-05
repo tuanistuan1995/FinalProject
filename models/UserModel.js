@@ -20,10 +20,10 @@ const UserSchema = new mongoose.Schema({
     Age: {
         type: String,
     },
-    Accept_friend: {
-        type: Boolean,
-        default: false,
-    },
+    // Accept_friend: {
+    //     type: Boolean,
+    //     default: false,
+    // },
     email: {
         type: String,
         maxlength: 50,
@@ -33,10 +33,6 @@ const UserSchema = new mongoose.Schema({
         enum: ["Male", "Female"],
         default: "Male",
     },
-    // friend: {
-    //     type: Array,
-    //     default: [],
-    // },
     posts: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -46,10 +42,6 @@ const UserSchema = new mongoose.Schema({
     account_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "AppUser",
-    },
-    sender_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Messages",
     },
     timeCreated: {
         type: Date,
@@ -61,24 +53,18 @@ const UserSchema = new mongoose.Schema({
             ref: "SavePosts",
         },
     ],
+    like_id: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Like",
+        },
+    ],
     following: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Friend",
         }
     ],
-    // followers: [
-    //     {
-    //         user_id: {
-    //             type: mongoose.Schema.Types.ObjectId, 
-    //             ref: "User",
-    //         },
-    //         date: {
-    //             type: Date,
-    //             default: () => Date.now(),
-    //         }
-    //     }
-    // ],
 });
 
 const User = mongoose.model("User", UserSchema);

@@ -105,26 +105,11 @@
                                 <span>List Posts</span>
                             </a>
                         </li>
-
-                        <li class="sidebar-title">Extra UI  
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pentagon-fill"></i>
-                                <span>Widgets</span>
+                        <li class="sidebar-item ">
+                            <a href="/account/logout" class='sidebar-link'>
+                                <img style="width: 40px;" src="/assets/images/logout.png">
+                                Logout
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="#">Chatbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">Pricing</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">To-do List</a>
-                                </li>
-                            </ul>
                         </li>
 
                     </ul>
@@ -144,7 +129,7 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Posts Detail of {{Posts.author.name}}</h3>                         
+                            <h3>Posts Detail of {{Posts.author.name}}</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -183,7 +168,7 @@
 
                             <div class="com" style="width: 50%;float: right;">
                                 <h3 style="margin-bottom: 16px;">
-                                    {{comcount}} Comments
+                                    {{comcount}} Comments        ||        {{likecount}} Likes
                                 </h3>
                                 <div class="scrollbar">
                                     <ul class="comment-list" id="listComment">

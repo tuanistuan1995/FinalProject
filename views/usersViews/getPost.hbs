@@ -34,10 +34,6 @@
       <a href="/user/SavePosts" title="Saving">
         <i class="fa fa-bookmark"></i>
       </a>
-
-      <a href="/user/Messages" title="Message">
-        <i class="fab fa-facebook-messenger"></i>
-      </a>
     </div>
 
     <div class="nav-right">
@@ -83,8 +79,12 @@
     </div>
 
 
-
-
+    {{#if errs}}
+    <div id="alert-suc" role="alert" class="alert alert-success alert-dismissible">
+      {{errs}}
+      <button style="margin-right: 241px;margin-top: 3px;" type="button" class="close" data-dismiss="alert"></button>
+    </div>
+    {{/if}}
     <!-- Posts Main -->
     <div class="main-posts" style="margin-top: 20px;">
       {{#each Posts}}
@@ -94,13 +94,20 @@
         </a>
         <div class="post-info">
           <div class="post-profile">
-            <form action="/user/deletePost" method="POST" enctype="application/x-www-form-urlencoded"> 
-            <input type="hidden" name="_id" value="{{_id}}">
-            <input type="hidden" name="_method" value="DELETE">
+            <form action="/user/deletePost" method="POST" enctype="application/x-www-form-urlencoded">
+              <input type="hidden" name="_id" value="{{_id}}">
+              <input type="hidden" name="_method" value="DELETE">
               <button style="border: 0;color: #95cab1;">
                 <i class="fas fa-trash"> <strong style="font-size:15px;">Delete</strong></i>
               </button>
             </form>
+          </div>
+          <div class="likes">
+            <button style="border: 0;">
+              <a style="color: #95cab1;" href="/user/UpdatePost/{{_id}}">
+                <i class="fas fa-edit"> <strong style="font-size:15px;">Update</strong></i>
+              </a>
+            </button>
           </div>
           <div class="likes">
             <button style="border: 0;">
@@ -126,8 +133,9 @@
         </p>
       </a>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </div>
-
 </body>
 
 </html>

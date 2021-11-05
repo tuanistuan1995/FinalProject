@@ -13,7 +13,7 @@ const isUser = (req, res, next) => {
     return next();
   } else {
     const msg =
-      "You must be logged in with student permission to view this page.";
+      "You must be logged in with User permission to view this page.";
     return res.redirect(`/account/login?msg=${msg}`);
   }
 };

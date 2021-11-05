@@ -2,52 +2,27 @@ const AppUser = require("../models/AppUserModel");
 const Friend = require("../models/FriendModel");
 const Posts = require("../models/PostsModel");
 const UserModel = require("../models/UserModel");
-const Posts_report = require("../models/Posts_reportModel");
 const Comment = require("../models/commentModel");
 const SavePostsModel = require("../models/SavePostsModel");
+const LikeModel = require("../models/LikeModel");
+
+
 // Get Home
-// const GetUserHome = (req, res, next) => {
-//   let user = {};
-//   let info = {};
-
-//   AppUser.findOne({ _id: req.session.userId })
-//     .exec()
-//     .then((value) => {
-//       user = {
-//         _id: value._id,
-//         username: value.username,
-//       };
-//       User.findOne({ account_id: req.session.userId })
-//         .exec()
-//         .then((data) => {
-//           info = {
-//             // Avatar: data.Avatar,
-//             // Phone: data.Phone,
-//             // Address: data.Address,
-//             // Age: data.Age,
-//             // name: data.name,
-//             // email: data.email,
-//             // gender: data.gender,
-//           };
-//         })
-//         .catch((err) => {
-//           console.log(err);
-//           res.render("./usersViews/HomePage");
-//         });
-//     });
-// };
-
 const GetUserHome = async (req, res, next) => {
+  const { msg } = req.query;
   try {
     const User = await UserModel.findOne({ account_id: req.session.userId });
     const UserAcc = await AppUser.findOne({ _id: req.session.userId });
     const PostsModel = await Posts.find({}).populate("author").sort({ timeCreated: -1 });
     const allFollowing = await Friend.find({ user_session: User._id }).populate("user_id");
+
     return res.render("usersViews/HomePage", {
       Posts: PostsModel,
       User: User,
       UserAcc: UserAcc,
       allFollowing: allFollowing,
+      err: msg,
+
     });
   } catch (error) {
     console.log(error);
@@ -58,16 +33,14 @@ const GetUserHome = async (req, res, next) => {
 const doSearch = async (req, res, next) => {
   const { search } = req.query;
   const keySearch = req.query.search;
-  let re = new RegExp (keySearch, "i");
+  let re = new RegExp(keySearch, "i");
   try {
     const User = await UserModel.findOne({ account_id: req.session.userId });
     const allFollowing = await Friend.find({ user_session: User._id }).populate("user_id");
     const searchPosts = await Posts.find({
-      $or: [ 
+      $or: [
         { title: re },
-        { desc: re },   
-        // { title: { $regex: new RegExp(keySearch, "i") } },
-        // { desc: { $regex: new RegExp(keySearch, "i") } },
+        { desc: re },
       ],
     }).populate("author");
     return res.render("usersViews/HomePage", {
@@ -98,7 +71,7 @@ const addPost = async (req, res, next) => {
       author: User._id,
     });
     await newPost.save();
-    const msg = "Succsessfully!";
+    const msg = "Add New Post Succsessfully!";
     return res.redirect(`/user/HomePage?msg=${msg}`);
   } catch (err) {
     console.log(err);
@@ -106,6 +79,7 @@ const addPost = async (req, res, next) => {
 };
 
 const getPost = async (req, res, next) => {
+  const { msgs } = req.query;
   try {
     const User = await UserModel.findOne({ account_id: req.session.userId });
     const UserAcc = await AppUser.findOne({ _id: req.session.userId });
@@ -114,12 +88,14 @@ const getPost = async (req, res, next) => {
       Posts: PostsModel,
       UserAcc: UserAcc,
       User: User,
+      errs: msgs,
     });
   } catch (error) {
     console.log(error);
   }
 };
 
+// Delete Post
 const deletetPost = async (req, res, next) => {
   const { _id } = req.body;
   try {
@@ -132,21 +108,6 @@ const deletetPost = async (req, res, next) => {
     console.log(error);
   }
 };
-
-// exports.getArticles = async (req, res, next) => {
-//   //const _id = req.query.id;
-//   try {
-//     const articles = await article
-//       .find({ author: req.session.userId, status: "draft" })
-//       .populate("category_name", "name")
-//       .exec();
-//     return res.render("users/articles", {
-//       article: articles,
-//     });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
 
 // Get User Profile
 const getUserProfile = async (req, res, next) => {
@@ -191,9 +152,44 @@ const getOtherProfile = async (req, res, next) => {
   }
 };
 
-// Get Messages
-const getMessages = (req, res, next) => {
-  return res.render("./usersViews/Messages");
+// Update Post
+const getupdatePost = async (req, res, next) => {
+  const _id = req.params.id;
+  try {
+    const User = await UserModel.findOne({ account_id: req.session.userId });
+    const PostsModel = await Posts.findOne({ _id: _id });
+    const UserAcc = await AppUser.findOne({ _id: req.session.userId });
+    return res.render("usersViews/UpdatePost", {
+      UserAcc: UserAcc,
+      User: User,
+      Posts: PostsModel,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const updatePost = async (req, res, next) => {
+  const { title, postImage, desc, _id } = req.body;
+  const newValue = {};
+  if (req.file) {
+    const image = req.file.filename;
+    newValue.postImage = image;
+  }
+  if (title) newValue.title = title;
+  if (desc) newValue.desc = desc;
+  const PostsModel = await Posts.findOne({ _id: _id }).populate("author");
+  try {
+    await Posts.findOneAndUpdate(
+      {_id : _id},
+      {$set: newValue},
+      {new: true},
+    )
+    const msg = "Post update successful";
+    return res.redirect(`/user/HomePage?msg=${msg}`);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // Get Update Inormation
@@ -247,16 +243,17 @@ const updateInfo = async (req, res, next) => {
 const getPostDetail = async (req, res, next) => {
   const _id = req.params.id;
   const demo = {};
+  const demoLike = {};
   try {
     const User = await UserModel.findOne({ account_id: req.session.userId });
     const PostsModel = await Posts.findOne({ _id: _id }).populate("author");
-    const Comments = await Comment.find({ posts: PostsModel }).populate(
-      "author"
-    );
+    // Comment display
+    const Comments = await Comment.find({ posts: PostsModel }).populate("author");
     const comcount = await Comment.countDocuments({ posts: PostsModel._id });
-
+    // SavePost display
     const allSavePosts = await SavePostsModel.findOne({
       posts_id: PostsModel._id,
+      user_id: User._id,
     });
     if (allSavePosts) {
       const SavePostsExists = await UserModel.findOne({
@@ -268,13 +265,32 @@ const getPostDetail = async (req, res, next) => {
       }
     }
 
+    // Like display
+    const likecount = await LikeModel.countDocuments({ posts_id: PostsModel._id });
+    const allLikePosts = await LikeModel.findOne({
+      posts_id: PostsModel._id,
+      user_id: User._id,
+    });
+    if (allLikePosts) {
+      const likePostsExists = await UserModel.findOne({
+        like_id: allLikePosts._id,
+      });
+
+      if (likePostsExists) {
+        demoLike["likePostsExists"] = likePostsExists;
+      }
+    }
+
     return res.render("usersViews/Post_Detail", {
       Posts: PostsModel,
       User: User,
       Comment: Comments,
-      SavePosts: allSavePosts,
-      demo,
       comcount: comcount,
+      SavePosts: allSavePosts,
+      LikePosts: allLikePosts,
+      likecount: likecount,
+      demo,
+      demoLike,
     });
   } catch (error) {
     console.log(error);
@@ -338,8 +354,6 @@ const ChangePassword = async (req, res, next) => {
   });
 };
 
-
-
 // Do Comment
 const doComment = async (req, res, next) => {
   const { content, blog_id } = req.body;
@@ -368,15 +382,19 @@ const doComment = async (req, res, next) => {
 
 // like Post
 const likePost = async (req, res, next) => {
-  const _id = req.body;
+  const _id = req.params.id;
+  const User = await UserModel.findOne({ account_id: req.session.userId });
   try {
-    const likePosts = await Posts.findOneAndUpdate(
-      { _id: _id },
-      { likeBy: [{ $set: { total_Likes: 1 } }] },
-    );
-    res.json(likePosts);
-  } catch (error) {
-    console.log(error);
+    const likePost = await new LikeModel({
+      posts_id: _id,
+      user_id: User._id,
+    });
+    const takeLikePosts = await likePost.save();
+    await User.like_id.push(takeLikePosts);
+    await User.save();
+    return res.redirect(`/user/Post_Detail/${_id}`);
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -384,11 +402,12 @@ const likePost = async (req, res, next) => {
 const unlikePost = async (req, res, next) => {
   const _id = req.body;
   try {
-    const ccc = await Posts.findOneAndUpdate(
-      { _id: _id },
-      { Likes: { $inc: { total_Likes: -1 } } },
+    const unlikePost = await LikeModel.findOneAndRemove({ _id: _id });
+    const abc = await UserModel.findOneAndUpdate(
+      { like_id: unlikePost._id },
+      { $pull: { like_id: unlikePost._id } }
     );
-    res.json(ccc);
+    return res.redirect(`/user/Post_Detail/${unlikePost.posts_id}`);
   } catch (error) {
     console.log(error);
   }
@@ -409,20 +428,7 @@ const getSavePosts = async (req, res, next) => {
   }
 };
 
-const unSavePosts = async (req, res, next) => {
-  const _id = req.body;
-  try {
-    const aaa = await SavePostsModel.findOneAndRemove({ _id: _id });
-    const abc = await UserModel.findOneAndUpdate(
-      { posts_id: aaa._id },
-      { $pull: { posts_id: aaa._id } }
-    );
-    return res.redirect(`/user/Post_Detail/${aaa.posts_id}`);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
+// Save Posts
 const SavePosts = async (req, res, next) => {
   const _id = req.params.id;
   const User = await UserModel.findOne({ account_id: req.session.userId });
@@ -440,23 +446,21 @@ const SavePosts = async (req, res, next) => {
   }
 };
 
-// const PostReport = async (req, res, next) => {
-//   const _id = req.params.id;
-//   try {
-//     const User = await UserModel.findOne({ account_id: req.session.userId });
-//     const PostsModel = await Posts.findOne({ _id: _id });
-//     const newPostReport = await new Posts_report({
-//       posts_id: _id,
-//     });
-//     const takePostReport = await newPostReport.save();
-//     await PostsModel.report_id.push(takePostReport);
-//     await PostsModel.save();
-//     return res.redirect(`/user/HomePage`);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
+const unSavePosts = async (req, res, next) => {
+  const _id = req.body;
+  try {
+    const aaa = await SavePostsModel.findOneAndRemove({ _id: _id });
+    const abc = await UserModel.findOneAndUpdate(
+      { posts_id: aaa._id },
+      { $pull: { posts_id: aaa._id } }
+    );
+    return res.redirect(`/user/Post_Detail/${aaa.posts_id}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+// Follow User
 const Following = async (req, res, next) => {
   const _id = req.params.id;
   const User = await UserModel.findOne({ account_id: req.session.userId });
@@ -506,11 +510,11 @@ module.exports = {
   getSavePosts,
   SavePosts,
   unSavePosts,
-  getMessages,
   getPostDetail,
   doComment,
   Following,
   unFollow,
   doSearch,
-  // PostReport,
+  updatePost,
+  getupdatePost,
 };

@@ -67,9 +67,9 @@
               <i class="fa fa-bookmark"></i>
             </a>
 
-            <a href="/user/Messages">
+            {{!-- <a href="/user/Messages">
               <i class="fab fa-facebook-messenger"></i>
-            </a>
+            </a> --}}
             <a href="/account/logout">
               <i class="fas fa-sign-out-alt"></i>
             </a>
@@ -101,10 +101,31 @@
             <p style=" margin-top: 10px; margin-bottom: 5px; word-break: break-all;"><strong>DESC: </strong>
               {{Posts.desc}}</p>
           </div>
+
+          <h3 class="mb-5 font-weight-bold"
+            style="margin-top: 14px;margin-bottom: 14px; margin-left: 5px; font-size: 21px;">{{comcount}} Comments
+          </h3>
+          <h3 class="mb-5 font-weight-bold"
+            style="margin-top: 14px;margin-bottom: 14px; margin-left: 5px; font-size: 21px;">{{likecount}} Likes
+          </h3>
           <div class="post-bottom">
             <div class="action">
-              <i class="far fa-thumbs-up"></i>
-              <span>Like</span>
+              {{#equals demoLike.likePostsExists.account_id session.userId}}
+              <form action="/user/unlikePost" method="POST">
+                <input type="hidden" name="_id" value="{{LikePosts._id}}">
+                <input type="hidden" name="_method" value="DELETE">
+                <button style="border: 0;color: #7256c7; font-size: 19px;background: white;" type="submit">
+                  <img style="width: 20px;" src="/assets/images/like-blue.png">
+                  <span style="font-family: auto;"> unLike</span></button>
+              </form>
+              {{else}}
+              <form action="/user/likePost/{{Posts._id}}" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+                <button style="border: 0; font-size: 19px;background: white;" type="submit">
+                  <img style="width: 20px;" src="/assets/images/like.png">
+                  <span style="font-family: auto;"> Like</span></button>
+              </form>
+              {{/equals}}
             </div>
             <div class="action">
               <i class="far fa-comment"></i>
@@ -113,8 +134,8 @@
             <div class="action">
               {{#equals demo.SavePostsExists.account_id session.userId}}
               <form action="/user/unSavePosts" method="POST">
-                 <input type="hidden" name="_id" value="{{SavePosts._id}}">
-                 <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_id" value="{{SavePosts._id}}">
+                <input type="hidden" name="_method" value="DELETE">
                 <button style="border: 0;color: #7256c7; font-size: 18px;background: white;" type="submit"
                   class="fa fa-bookmark">
                   <span style="font-family: auto;"> Save</span></button>
@@ -129,9 +150,6 @@
             </div>
           </div>
           <div class="pt-5 mt-5">
-            <h3 class="mb-5 font-weight-bold"
-              style="margin-top: 14px;margin-bottom: 14px; margin-left: 5px; font-size: 21px;">{{comcount}} Comments
-            </h3>
             <ul class="comment-list" id="listComment">
               {{#each Comment}}
               <li class="comment">

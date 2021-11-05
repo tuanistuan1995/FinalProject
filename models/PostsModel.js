@@ -8,7 +8,6 @@ var PostsSchema = mongoose.Schema({
     postImage: {
         type: String,
     },
-    //delete: String,
     desc: {
         type: String,
         required: true,
@@ -27,29 +26,7 @@ var PostsSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
-    likeBy: [
-        {
-            user_id: {
-                type: Schema.Types.ObjectId,
-                ref: "User",
-            },
-            total_Likes: {
-                type: Number,
-                default: 0,
-            },
-        }
-    ],
-    report_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Posts_report",
-    },
 });
-
-// PostsSchema.virtual("user", {
-//     ref: "User",
-//     localField: "_id",
-//     foreignField: "posts",
-// });
 
 const Posts = mongoose.model("Posts", PostsSchema);
 

@@ -64,11 +64,15 @@ const Login = (req, res, next) => {
           req.session.userId = user._id;
           req.session.isAdmin = user.role === "admin" ? true : false;
           req.session.isUser = user.role === "user" ? true : false;
+          req.session.isUserBlock = user.role === "block" ? true : false;
 
           if (user.role === "admin") {
             return res.redirect(`/admin/admin_home`);
           } else if (user.role === "user") {
             return res.redirect(`/user/HomePage`);
+          } else if (user.role === "block") {
+            const msg = "Your account has been locked !!!";
+            return res.redirect(`/account/login?msg=${msg}`);
           }
         } else {
           const msg = "Username or Password is incorrect !!!";

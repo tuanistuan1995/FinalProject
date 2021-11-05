@@ -20,11 +20,11 @@ var {
     unSavePosts,
     likePost,
     unlikePost,
-    getMessages,
     doComment,
     unFollow,
     doSearch,
-    PostReport,
+    getupdatePost,
+    updatePost,
 } = require("../controllers/UserController");
 var { multerInstance } = require("../middleware/upload");
 
@@ -36,11 +36,9 @@ router.get("/SavePosts", isUser, getSavePosts);
 router.put("/SavePosts/:id", isUser, SavePosts);
 router.delete("/unSavePosts", isUser, unSavePosts);
 
-// Report Post
-// router.put("/PostReport/:id", isUser, PostReport);
+router.put("/likePost/:id", isUser, likePost);
+router.delete("/unlikePost", isUser, unlikePost);
 
-//get Message
-router.get("/Messages", isUser, getMessages);
 
 // Get user Profile
 router.get("/Profile", isUser, getUserProfile);
@@ -55,6 +53,10 @@ router.put("/ChangePassword", isUser, ChangePassword);
 router.get("/UpdateInfo/:id", isUser, getupdateInfo);
 router.post("/UpdateInfo", multerInstance, isUser, updateInfo);
 
+// Update Post
+router.get("/UpdatePost/:id", isUser, getupdatePost);
+router.post("/UpdatePost", multerInstance, isUser, updatePost);
+
 // Get  Post Detail
 router.get("/Post_Detail/:id", isUser, getPostDetail);
 
@@ -65,9 +67,6 @@ router.delete("/deletePost", isUser, deletetPost);
 
 //Do Comment
 router.post("/doComment", isUser, doComment);
-
-router.put("/likePost", isUser, likePost);
-router.put("/unlikePost", isUser, unlikePost);
 
 router.put("/following/:id", isUser, Following);
 router.delete("/unfollowing", isUser, unFollow);

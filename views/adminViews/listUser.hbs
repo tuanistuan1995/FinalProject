@@ -54,50 +54,12 @@
                                 <span>List Posts </span>
                             </a>
                         </li>
-
-                        {{!-- <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-collection-fill"></i>
-                                <span>Extra Components</span>
+                        <li class="sidebar-item ">
+                            <a href="/account/logout" class='sidebar-link'>
+                                <img style="width: 40px;" src="/assets/images/logout.png">
+                                Logout
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="#">Sweet Alert</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">Toastify</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">Rating</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">Divider</a>
-                                </li>
-                            </ul>
-                        </li> --}}
-
-                        {{!-- <li class="sidebar-title">Forms &amp; Tables</li> --}}
-
-                        <li class="sidebar-title">Extra UI</li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pentagon-fill"></i>
-                                <span>Widgets</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="#">Chatbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">Pricing</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">To-do List</a>
-                                </li>
-                            </ul>
                         </li>
-
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -130,6 +92,12 @@
                         </div>
                     </div>
                 </div>
+                {{#if err}}
+                <div id="alert-suc" role="alert" class="alert alert-success alert-dismissible">
+                    {{err}}
+                    <button type="button" class="close" data-dismiss="alert"></button>
+                </div>
+                {{/if}}
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
@@ -143,6 +111,7 @@
                                         <th>Full Name</th>
                                         <th>timeCreated</th>
                                         <th>Email</th>
+                                        <th>Role</th>
                                         <th>Age</th>
                                         <th>Phone</th>
                                         <th>Address</th>
@@ -158,12 +127,33 @@
                                         <td>{{name}}</td>
                                         <td>{{timeCreated}}</td>
                                         <td>{{email}}</td>
+                                        <td>{{account_id.role}}</td>
                                         <td>{{Age}}</td>
                                         <td>{{Phone}}</td>
                                         <td>{{Address}}</td>
                                         <td>{{gender}}</td>
                                         <td>
-                                            <span class="badge bg-success">Block</span>
+                                            {{#equals account_id.role "block"}}
+                                            <form action="/admin/unblockUser" method="POST"
+                                                enctype="application/x-www-form-urlencoded">
+                                                <input type="hidden" name="_id" value="{{_id}}">
+                                                <input type="hidden" name="_method" value="PUT">
+                                                <button class="badge bg-success">
+                                                    <strong style="font-size:15px;">unBlock
+                                                    </strong>
+                                                </button>
+                                            </form>
+                                            {{else}}
+                                            <form action="/admin/blockUser" method="POST"
+                                                enctype="application/x-www-form-urlencoded">
+                                                <input type="hidden" name="_id" value="{{_id}}">
+                                                <input type="hidden" name="_method" value="PUT">
+                                                <button class="badge bg-success">
+                                                    <strong style="font-size:15px;">Block
+                                                    </strong>
+                                                </button>
+                                            </form>
+                                            {{/equals}}
                                         </td>
                                     </tr>
                                     {{/each}}
@@ -201,7 +191,8 @@
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
     </script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/assets/js/main.js"></script>
 </body>
 
