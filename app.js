@@ -4,10 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var methodOverride = require("method-override");
-var session = require("express-session");
-var moment = require('moment'); 
+var session = require("express-session"); 
 var exphbs = require('express-handlebars');
 const Handlebars = require('handlebars');
+var mongoose = require("mongoose");
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 
 
@@ -19,7 +19,6 @@ var adminRouter = require('./routes/admin');
 const apiRouter = require('./routes/api');
 
 var app = express();
-var mongoose = require("mongoose");
 // const { format } = require('path');
 
 // connect to Database
@@ -30,7 +29,6 @@ mongoose
   .connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    
     // useFindAndModify: false,
     // useCreateIndex: true
   })
@@ -46,19 +44,6 @@ app.use(
   })
 );
 
-// exphbs.registerHelper('dateFormat', function (date, options) {
-//   const formatToUse = (arguments[1] && arguments[1].hash && arguments[1].hash.format) || "DD/MM/YYYY"
-//   return moment(date).format(formatToUse);
-// });
-
-
-// const hbs = exphbs.create({
-//   helpers: {
-//     generateDate : (date, format) => {
-//       return moment(date).format(format)
-//     }
-//   }
-// })
 
 app.engine(
   'hbs',

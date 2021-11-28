@@ -12,18 +12,14 @@ const UserSchema = new mongoose.Schema({
         maxlength: 10,
     },
     Phone: {
-        type: String,
+        type: Number,
     },
     Address: {
         type: String,
     },
     Age: {
-        type: String,
+        type: Number,
     },
-    // Accept_friend: {
-    //     type: Boolean,
-    //     default: false,
-    // },
     email: {
         type: String,
         maxlength: 50,

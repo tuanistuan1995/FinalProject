@@ -1,7 +1,7 @@
 <html lang="en">
 
 <head>
-  <title>MediaBook</title>
+  <title>Interesting</title>
   <link rel="stylesheet" href="/assets/css/homepage.css" />
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -82,11 +82,11 @@
           <li>
             <i class="fas fa-calendar-alt">
               Joined on
-              <strong style="color: black;">{{User.timeCreated}}</strong></i>
+              <strong style="color: black;">{{moment User.timeCreated format ="MMMM DD - YYYY"}}</strong></i>
           </li>
-          <li>
+          {{!-- <li>
             <i class="fas fa-users"> Freiend:</i>
-          </li>
+          </li> --}}
         </ul>
       </div>
 
@@ -259,7 +259,7 @@
                   title="Verified">
               </p>
             </a>
-            <span class="time">{{timeCreated}}</span>
+            <span class="time">{{moment author.timeCreated format ="MMMM DD - YYYY"}}</span>
           </div>
           <i class="fas fa-ellipsis-h"></i>
         </div>
@@ -275,14 +275,6 @@
 
 
           <div style="width: 100%;text-align: center;">
-            {{!-- <div class="action" id="unlike">
-              <form id="ajaxunLike" method="POST">
-                <input type="hidden" id="blogId" name="_id" value="{{_id}}">
-                <button type="submit" style="font-size: 18px; border: 0;background: white;">
-                  <img style="width: 20px;" src="/assets/images/like.png"> Like</button>
-                <strong>{{Like}}</strong>
-              </form>
-            </div> --}}
             <div class="action">
               <a href="/user/Post_Detail/{{_id}}">
                 <i class="fas fa-eye"></i>

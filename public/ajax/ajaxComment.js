@@ -28,28 +28,6 @@ $(document).ready(() =>{
         })
     }
 
-    // function formatDate(data) {
-    //     let date = new Date(data);
-    //     let day = date.getDate();
-    //     let month = date.getMonth() + 1;
-    //     let hour = date.getHours();
-    //     let minute = date.getMinutes();
-    //     let second = date.getSeconds();
-
-    //     let longMonth = new Intl.DateTimeFormat('en-US', {
-    //         month: 'long',
-    //     }).format(date);
-
-    //     if (day < 10) day = '0' + day;
-    //     if (month < 10) month = '0' + month;
-    //     if (hour < 10) hour = '0' + hour;
-    //     if (minute < 10) minute = '0' + minute;
-
-    //     let formatted_date =
-    //         longMonth + ' ' + day + ', ' + date.getFullYear() + ' ' + hour + ':' + minute;
-    //     return formatted_date;
-    // }
-
     var blogId = $('#blogId').val();
     function ajaxGet() {
         $.ajax({
@@ -78,7 +56,7 @@ $(document).ready(() =>{
         html+='<div class="comment-body">';
         html+='<div class="post-info">';
         html+='<h3 class="name">'+comment.author.name+'</h3>';
-        html+='<span class="meta">'+comment.author.timeCreated+'</span>';
+        html+='<span class="meta">'+comment.timeCreated+'</span>';
         html+='</div>';
         html+='<p>';
         html+=''+comment.content+'';

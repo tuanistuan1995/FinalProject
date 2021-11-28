@@ -19,9 +19,12 @@ const Register = async (req, res, next) => {
     if (err) {
       return console.log(err);
     } else if (user) {
-      const errorUsername = "Username has already exist !!!";
+      const errorUsername = "Username has already existed !!!";
       return res.redirect(`/register?msg=${errorUsername}`);
-    } else if (pwd.length < 4) {
+    } else if (usr.length < 4) {
+      const errorUsername = "Username must be at least 4 characters !!!";
+      return res.redirect(`/register?msg=${errorUsername}`);
+    }else if (pwd.length < 4) {
       const errorPassword = "Password must be at least 4 characters !!!";
       return res.redirect(`/register?msg=${errorPassword}`);
     } else if (pwd2 != pwd) {
@@ -67,7 +70,7 @@ const Login = (req, res, next) => {
           req.session.isUserBlock = user.role === "block" ? true : false;
 
           if (user.role === "admin") {
-            return res.redirect(`/admin/admin_home`);
+            return res.redirect(`/admin/getListUser`);
           } else if (user.role === "user") {
             return res.redirect(`/user/HomePage`);
           } else if (user.role === "block") {

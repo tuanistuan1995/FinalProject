@@ -19,9 +19,9 @@ router.get("/listPost", isAdmin, listPost);
 
 router.get("/Post_Detail/:id", isAdmin, adminPostDetail);
 
-router.get('/admin_home', isAdmin, function(req, res, next){
-    res.render("./adminViews/admin_home");
-});
+// router.get('/admin_home', isAdmin, function(req, res, next){
+//     res.render("./adminViews/admin_home");
+// });
 
 router.delete("/deletePost", isAdmin, adminDeletetPost)
 router.put("/blockUser", isAdmin, adminBlockUser)

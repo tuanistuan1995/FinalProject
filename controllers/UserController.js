@@ -54,24 +54,21 @@ const doSearch = async (req, res, next) => {
   }
 };
 
-// Get Post
+// Add new Post
 const addPost = async (req, res, next) => {
-  const { title, postImage, desc, timeCreated, Like, Comment, author } =
+  const { title, desc, timeCreated } =
     req.body;
   const User = await UserModel.findOne({ account_id: req.session.userId });
-  // console.log(req.session.userId);
   try {
     const newPost = new Posts({
       title: title,
       postImage: req.file.filename,
       desc: desc,
       timeCreated: timeCreated,
-      Like: Like,
-      Comment: Comment,
       author: User._id,
     });
     await newPost.save();
-    const msg = "Add New Post Succsessfully!";
+    const msg = "Add New Post Sucsessfully!";
     return res.redirect(`/user/HomePage?msg=${msg}`);
   } catch (err) {
     console.log(err);
@@ -83,12 +80,14 @@ const getPost = async (req, res, next) => {
   try {
     const User = await UserModel.findOne({ account_id: req.session.userId });
     const UserAcc = await AppUser.findOne({ _id: req.session.userId });
-    const PostsModel = await Posts.find({ author: User._id });
+    const PostsModel = await Posts.find({ author: User._id }).sort({ timeCreated: -1 });
+    const followcount = await Friend.countDocuments({ user_session: User._id });
     return res.render("usersViews/getPost", {
       Posts: PostsModel,
       UserAcc: UserAcc,
       User: User,
       errs: msgs,
+      followcount: followcount,
     });
   } catch (error) {
     console.log(error);
@@ -113,10 +112,12 @@ const deletetPost = async (req, res, next) => {
 const getUserProfile = async (req, res, next) => {
   const UserAcc = await AppUser.findOne({ _id: req.session.userId });
   const User = await UserModel.findOne({ account_id: req.session.userId });
+  const followcount = await Friend.countDocuments({ user_session: User._id });
   try {
     return res.render("usersViews/Profile", {
       UserAcc: UserAcc,
       User: User,
+      followcount: followcount,
     });
   } catch (error) {
     console.log(error);
@@ -128,10 +129,13 @@ const getOtherProfile = async (req, res, next) => {
   const demo = {};
   try {
     const User = await UserModel.findOne({ _id: req.params.id });
+    const UserAcc = await UserModel.findOne({ account_id: req.session.userId });
     const PostsModel = await Posts.find({ author: User._id });
     const Following = await Friend.findOne({
       user_id: _id,
+      user_session: UserAcc._id,
     });
+
     if (Following) {
       const FollowingExists = await UserModel.findOne({
         following: Following._id,
@@ -159,10 +163,12 @@ const getupdatePost = async (req, res, next) => {
     const User = await UserModel.findOne({ account_id: req.session.userId });
     const PostsModel = await Posts.findOne({ _id: _id });
     const UserAcc = await AppUser.findOne({ _id: req.session.userId });
+    const followcount = await Friend.countDocuments({ user_session: User._id });
     return res.render("usersViews/UpdatePost", {
       UserAcc: UserAcc,
       User: User,
       Posts: PostsModel,
+      followcount: followcount,
     });
   } catch (error) {
     console.log(error);
@@ -181,9 +187,9 @@ const updatePost = async (req, res, next) => {
   const PostsModel = await Posts.findOne({ _id: _id }).populate("author");
   try {
     await Posts.findOneAndUpdate(
-      {_id : _id},
-      {$set: newValue},
-      {new: true},
+      { _id: _id },
+      { $set: newValue },
+      { new: true },
     )
     const msg = "Post update successful";
     return res.redirect(`/user/HomePage?msg=${msg}`);
@@ -193,23 +199,25 @@ const updatePost = async (req, res, next) => {
 };
 
 // Get Update Inormation
-const getupdateInfo = (req, res, next) => {
+const getupdateInfo = async (req, res, next) => {
   const _id = req.params.id;
-  AppUser.findOne({ _id: _id })
-    .exec()
-    .then((UserAcc) => {
-      UserModel.findOne({ account_id: _id })
-        .exec()
-        .then((User) => {
-          return res.render("usersViews/UpdateInfo", {
-            UserAcc: UserAcc,
-            User: User,
-          });
-        });
+  try {
+    const UserAcc = await AppUser.findOne({ _id: _id });
+    const User = await UserModel.findOne({ account_id: _id });
+    const followcount = await Friend.countDocuments({ user_session: User._id });
+    return res.render("usersViews/UpdateInfo", {
+      UserAcc: UserAcc,
+      User: User,
+      followcount: followcount,
     });
+  } catch (error) {
+    console.log(error);
+  }
 };
+
+// Update Ìnormation
 const updateInfo = async (req, res, next) => {
-  const { Avatar, Phone, Address, Age, name, email, gender, _id } = req.body;
+  const { Phone, Address, Age, name, email, gender } = req.body;
   const newValue = {};
   if (req.file) {
     const image = req.file.filename;
@@ -223,7 +231,6 @@ const updateInfo = async (req, res, next) => {
   if (gender) newValue.gender = gender;
 
   const UserAcc = await AppUser.findOne({ _id: req.session.userId });
-
   UserModel.findOneAndUpdate(
     { account_id: UserAcc._id },
     { $set: newValue },
@@ -298,41 +305,41 @@ const getPostDetail = async (req, res, next) => {
 };
 
 // Get Change Password
-const getChangePassword = (req, res, next) => {
+const getChangePassword = async (req, res, next) => {
   const _id = req.params.id;
   const { msg } = req.query;
   const { msgs } = req.query;
-  AppUser.findOne({ _id: _id })
-    .exec()
-    .then((UserAcc) => {
-      UserModel.findOne({ account_id: _id })
-        .exec()
-        .then((User) => {
-          return res.render("./usersViews/ChangePassword", {
-            UserAcc: UserAcc,
-            User: User,
-            err: msg,
-            errs: msgs,
-          });
-        });
+  try {
+    const UserAcc = await AppUser.findOne({ _id: _id });
+    const User = await UserModel.findOne({ account_id: _id });
+    const followcount = await Friend.countDocuments({ user_session: User._id });
+    return res.render("./usersViews/ChangePassword", {
+      UserAcc: UserAcc,
+      User: User,
+      followcount: followcount,
+      err: msg,
+      errs: msgs,
     });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const ChangePassword = async (req, res, next) => {
   const { pwd, pwd2, _id } = req.body;
   const newValue = {};
   if (pwd) newValue.password = pwd;
+  const UserAcc = await AppUser.findOne({ _id: req.session.userId });
   AppUser.findOne({ _id: req.session.userId }).exec(async (err, data) => {
     if (err) {
       return console.log(err);
     } else if (pwd.length < 4) {
       const errorPassword = "Password must be at least 4 characters !!!";
-      return res.redirect(`/user/ChangePassword/${_id}?msg=${errorPassword}`);
+      return res.redirect(`/user/ChangePassword/${UserAcc._id}?msg=${errorPassword}`);
     } else if (pwd2 != pwd) {
       const errorPassword = "Confirm Password Error!";
-      return res.redirect(`/user/ChangePassword/${_id}?msg=${errorPassword}`);
+      return res.redirect(`/user/ChangePassword/${UserAcc._id}?msg=${errorPassword}`);
     } else {
-      const UserAcc = await AppUser.findOne({ _id: req.session.userId });
       AppUser.findOneAndUpdate(
         { _id: data._id },
         { $set: newValue },
@@ -343,7 +350,7 @@ const ChangePassword = async (req, res, next) => {
             return res.redirect(`user/ChangePassword`);
           } else {
             console.log(data);
-            const msgs = "Successfully!";
+            const msgs = "Change password successfully!";
             return res.redirect(
               `/user/ChangePassword/${UserAcc._id}?msgs=${msgs}`
             );
@@ -356,9 +363,9 @@ const ChangePassword = async (req, res, next) => {
 
 // Do Comment
 const doComment = async (req, res, next) => {
-  const { content, blog_id } = req.body;
+  const { content, com_id } = req.body;
   const User = await UserModel.findOne({ account_id: req.session.userId });
-  const PostsModel = await Posts.findOne({ _id: blog_id });
+  const PostsModel = await Posts.findOne({ _id: com_id });
   try {
     const com = {
       author: User._id,
@@ -367,12 +374,7 @@ const doComment = async (req, res, next) => {
     };
     const newComment = await Comment.create(com);
     const saveCom = await newComment.save();
-    // const newComment = await new Comment({
-    //   author: User._id,
-    //   content: content,
-    // });
     await PostsModel.Comment_id.push(saveCom);
-    // console.log(saveCom)
     await PostsModel.save();
     res.json(saveCom);
   } catch (error) {
@@ -449,12 +451,12 @@ const SavePosts = async (req, res, next) => {
 const unSavePosts = async (req, res, next) => {
   const _id = req.body;
   try {
-    const aaa = await SavePostsModel.findOneAndRemove({ _id: _id });
-    const abc = await UserModel.findOneAndUpdate(
-      { posts_id: aaa._id },
-      { $pull: { posts_id: aaa._id } }
+    const Save = await SavePostsModel.findOneAndRemove({ _id: _id });
+    const User = await UserModel.findOneAndUpdate(
+      { posts_id: Save._id },
+      { $pull: { posts_id: Save._id } }
     );
-    return res.redirect(`/user/Post_Detail/${aaa.posts_id}`);
+    return res.redirect(`/user/Post_Detail/${Save.posts_id}`);
   } catch (error) {
     console.log(error);
   }
@@ -482,11 +484,10 @@ const unFollow = async (req, res, next) => {
   const _id = req.body;
   try {
     const Friends = await Friend.findOneAndRemove({ _id: _id });
-    const User = await UserModel.findOne({ _id: req.params.id });
-    // const User = await UserModel.findOneAndUpdate(
-    //   { following: Friend._id },
-    //   { $pull: { following: Friend._id } }
-    // );
+    const User = await UserModel.findOneAndUpdate(
+      { user_id: _id },
+      { $pull: { user_id: _id } }
+    );
     return res.redirect(`/user/OtherProfile/${Friends.user_id}`);
   } catch (error) {
     console.log(error);

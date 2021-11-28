@@ -18,12 +18,6 @@ const CommentSchema = new mongoose.Schema({
   },
 });
 
-// CommentSchema.virtual("comment_article", {
-//   ref: "Articles",
-//   localField: "_id",
-//   foreignField: "comments",
-// });
-
 const Comment = mongoose.model("Comment", CommentSchema);
 
 module.exports = Comment;

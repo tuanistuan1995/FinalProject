@@ -86,12 +86,12 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        <li class="sidebar-item ">
+                        {{!-- <li class="sidebar-item ">
                             <a href="/admin/admin_home" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="sidebar-item ">
                             <a href="/admin/getListUser" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
@@ -134,7 +134,7 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/admin/admin_home">Dashboard</a></li>
+                                    {{!-- <li class="breadcrumb-item"><a href="/admin/admin_home">Dashboard</a></li> --}}
                                     <li class="breadcrumb-item"><a href="/admin/getListUser">User List</a></li>
                                     <li class="breadcrumb-item"><a href="/admin/listPost">List Postst</a></li>
                                     <li class="breadcrumb-item"> <a href="/account/logout"> Logout </a> </li>
@@ -154,7 +154,7 @@
                                 <div class="post-info">
                                     <p class="name">{{Posts.author.name}} <img style="width: 13px; margin-left: 3px;"
                                             src="/assets/images/verify.png" title="Verified"></p>
-                                    <span class="time"><strong>Time:</strong> {{Posts.timeCreated}}</span>
+                                    <span class="time"><strong>Time:</strong> {{moment Posts.timeCreated format ="MMMM DD - YYYY"}}</span>
                                 </div>
                                 <i class="fas fa-ellipsis-h">
                                 </i>
@@ -181,7 +181,7 @@
                                             <div class="comment-body">
                                                 <div class="post-info">
                                                     <h3 style="font-size: 16px;" class="name">{{author.name}}</h3>
-                                                    <span style="color:blue;" class="meta">{{author.timeCreated}}</span>
+                                                    <span style="color:blue;" class="meta">{{timeCreated}}</span>
                                                 </div>
                                                 <p>
                                                     {{content}}

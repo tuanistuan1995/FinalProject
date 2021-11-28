@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>MediaBook</title>
+  <title>Interesting</title>
   <link rel='stylesheet' href='/assets/css/postdetail.css' />
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -91,7 +91,7 @@
             <div class="post-info">
               <p class="name">{{Posts.author.name}} <img style="width: 13px; margin-left: 3px;"
                   src="/assets/images/verify.png" title="Verified"></p>
-              <span class="time">{{Posts.timeCreated}}</span>
+              <span class="time">{{moment Posts.author.timeCreated format ="MMMM DD - YYYY"}}</span>
             </div>
             <i class="fas fa-ellipsis-h">
             </i>
@@ -116,7 +116,7 @@
                 <input type="hidden" name="_method" value="DELETE">
                 <button style="border: 0;color: #7256c7; font-size: 19px;background: white;" type="submit">
                   <img style="width: 20px;" src="/assets/images/like-blue.png">
-                  <span style="font-family: auto;"> unLike</span></button>
+                  <span style="font-family: auto;"> Like</span></button>
               </form>
               {{else}}
               <form action="/user/likePost/{{Posts._id}}" method="POST">
@@ -159,7 +159,7 @@
                 <div class="comment-body">
                   <div class="post-info">
                     <h3 class="name">{{author.name}}</h3>
-                    <span class="meta">{{author.timeCreated}}</span>
+                    <span class="meta">{{moment timeCreated format ="MMMM DD - YYYY"}}</span>
                   </div>
                   <p>
                     {{content}}
@@ -182,7 +182,7 @@
                   <textarea id="content" name="content" placeholder="Add comment..." required></textarea>
                 </div>
                 <div class="col-40">
-                  <input type="hidden" id="blogId" name="blog_id" value="{{Posts._id}}">
+                  <input type="hidden" id="blogId" name="com_id" value="{{Posts._id}}">
                   <input type="submit" id="submit" value="Add Comment">
                 </div>
               </div>
